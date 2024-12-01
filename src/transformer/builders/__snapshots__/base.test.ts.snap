@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BuilderBaseTransformer constructs correct type guard for Type.ArrayType 1`] = `"TestEnum[]"`;
+
+exports[`BuilderBaseTransformer constructs correct type guard for Type.BooleanKeyword 1`] = `"boolean"`;
+
+exports[`BuilderBaseTransformer constructs correct type guard for Type.Identifier 1`] = `"TestEnum.ENUM_KEY_STRING"`;
+
+exports[`BuilderBaseTransformer constructs correct type guard for Type.InterfaceDeclaration 1`] = `"TestInterface"`;
+
+exports[`BuilderBaseTransformer constructs correct type guard for Type.NumberKeyword 1`] = `"number"`;
+
+exports[`BuilderBaseTransformer constructs correct type guard for Type.StringKeyword 1`] = `"string"`;
+
+exports[`BuilderBaseTransformer constructs correct type guard for Type.TupleType 1`] = `"[TestEnum.ENUM_KEY_STRING, ...TestEnum[]]"`;
+
+exports[`BuilderBaseTransformer constructs correct type guard for Type.TypeReference 1`] = `"TestInterfaceConstraintExtender"`;
+
+exports[`BuilderBaseTransformer constructs correct type guard for Type.TypeReference 2`] = `"TestTypeAlias"`;
+
+exports[`BuilderBaseTransformer constructs correct type guard for Type.TypeReference 3`] = `"TestRelationship<TestNode>"`;
+
+exports[`BuilderBaseTransformer constructs correct type guard for Type.UnionType 1`] = `"string | number | boolean"`;

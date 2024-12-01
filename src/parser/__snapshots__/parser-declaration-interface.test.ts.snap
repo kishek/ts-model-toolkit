@@ -1,0 +1,1508 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InterfaceParser returns structure of interface with a generic array property, constrained by type parameters 1`] = `
+{
+  "name": "TestInterfaceWithGenericArrayType",
+  "type": "interface",
+  "comment": "This is a test interface with a generic array property.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestInterfaceConstraint",
+      "path": "./primitives/test.interface.generic.constraint"
+    },
+    {
+      "name": "TestInterfaceConstraintExtender",
+      "path": "./primitives/test.interface.generic.constraint.extender"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myGenericArrayProperty",
+      "comment": "A generic array property.",
+      "imports": [],
+      "isRequired": true,
+      "type": {
+        "raw": "GenericType[]",
+        "kind": {
+          "value": 185,
+          "name": "ArrayType"
+        },
+        "elements": [
+          {
+            "raw": "GenericType",
+            "kind": {
+              "value": 180,
+              "name": "TypeReference"
+            },
+            "defaultValue": {
+              "raw": "TestInterfaceConstraintExtender",
+              "kind": {
+                "value": 180,
+                "name": "TypeReference"
+              },
+              "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint.extender"
+            },
+            "constraintValue": {
+              "raw": "TestInterfaceConstraint",
+              "kind": {
+                "value": 180,
+                "name": "TypeReference"
+              },
+              "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
+            },
+            "suppliedValue": {}
+          }
+        ],
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [
+    {
+      "raw": "GenericType",
+      "kind": {
+        "value": 180,
+        "name": "TypeReference"
+      },
+      "defaultValue": {
+        "raw": "TestInterfaceConstraintExtender",
+        "kind": {
+          "value": 180,
+          "name": "TypeReference"
+        },
+        "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint.extender"
+      },
+      "constraintValue": {
+        "raw": "TestInterfaceConstraint",
+        "kind": {
+          "value": 180,
+          "name": "TypeReference"
+        },
+        "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
+      },
+      "suppliedValue": {}
+    }
+  ],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.array.generic.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with a generic property, constrained by type parameters 1`] = `
+{
+  "name": "TestInterfaceWithGenericType",
+  "type": "interface",
+  "comment": "This is a test interface with a generic type property.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestInterfaceConstraint",
+      "path": "./primitives/test.interface.generic.constraint"
+    },
+    {
+      "name": "TestInterfaceConstraintExtender",
+      "path": "./primitives/test.interface.generic.constraint.extender"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myGenericProperty",
+      "comment": "A generic property.",
+      "imports": [
+        {
+          "name": "TestInterfaceConstraint",
+          "path": "./primitives/test.interface.generic.constraint"
+        }
+      ],
+      "isRequired": true,
+      "type": {
+        "raw": "GenericType",
+        "kind": {
+          "value": 180,
+          "name": "TypeReference"
+        },
+        "defaultValue": {
+          "raw": "TestInterfaceConstraintExtender",
+          "kind": {
+            "value": 180,
+            "name": "TypeReference"
+          },
+          "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint.extender"
+        },
+        "constraintValue": {
+          "raw": "TestInterfaceConstraint",
+          "kind": {
+            "value": 180,
+            "name": "TypeReference"
+          },
+          "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
+        },
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [
+    {
+      "raw": "GenericType",
+      "kind": {
+        "value": 180,
+        "name": "TypeReference"
+      },
+      "defaultValue": {
+        "raw": "TestInterfaceConstraintExtender",
+        "kind": {
+          "value": 180,
+          "name": "TypeReference"
+        },
+        "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint.extender"
+      },
+      "constraintValue": {
+        "raw": "TestInterfaceConstraint",
+        "kind": {
+          "value": 180,
+          "name": "TypeReference"
+        },
+        "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
+      },
+      "suppliedValue": {}
+    }
+  ],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.generic-type.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with a narrowed enum property 1`] = `
+{
+  "name": "TestInterfaceWithEnumNarrowProperty",
+  "type": "interface",
+  "comment": "This is a test interface with an enum property with a specific value.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestEnum",
+      "path": "./test.enum"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myEnumProperty",
+      "comment": "A enum property with a specific value.",
+      "imports": [
+        {
+          "name": "TestEnum",
+          "path": "./test.enum"
+        }
+      ],
+      "isRequired": true,
+      "type": {
+        "raw": "TestEnum",
+        "kind": {
+          "value": 79,
+          "name": "Identifier"
+        },
+        "defaultValue": {
+          "raw": "ENUM_KEY_STRING",
+          "kind": {
+            "value": 79,
+            "name": "Identifier"
+          }
+        },
+        "typeArguments": [],
+        "constraintValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.enum.narrow.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with a parent interface 1`] = `
+{
+  "name": "TestInterfaceWithParent",
+  "type": "interface",
+  "comment": "This is a test interface with a parent interface.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestInterfaceConstraint",
+      "path": "./primitives/test.interface.generic.constraint"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myBaseProperty",
+      "comment": "A base property.",
+      "imports": [],
+      "isRequired": true,
+      "type": {
+        "raw": "string",
+        "kind": {
+          "value": 152,
+          "name": "StringKeyword"
+        },
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [
+    {
+      "name": "TestInterfaceConstraint",
+      "type": "interface",
+      "comment": "This is a test interface used to establish a generic type constraint.",
+      "tags": [],
+      "imports": [],
+      "properties": [
+        {
+          "name": "myRandomProperty",
+          "comment": "A random property.",
+          "imports": [],
+          "isRequired": true,
+          "type": {
+            "raw": "string",
+            "kind": {
+              "value": 152,
+              "name": "StringKeyword"
+            },
+            "constraintValue": {},
+            "defaultValue": {},
+            "suppliedValue": {}
+          }
+        }
+      ],
+      "extendingStructures": [],
+      "typeParameters": [],
+      "typeArguments": [],
+      "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint.ts"
+    }
+  ],
+  "typeParameters": [],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.parent-interface.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with a parent interface which accepts type arguments 1`] = `
+{
+  "name": "TestInterfaceWithParentGeneric",
+  "type": "interface",
+  "comment": "This is a test interface with a parent interface which accepts type arguments.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestInterfaceConstraintExtender",
+      "path": "./primitives/test.interface.generic.constraint.extender"
+    },
+    {
+      "name": "TestInterfaceParent",
+      "path": "./primitives/test.interface.parent"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myBaseProperty",
+      "comment": "A base property.",
+      "imports": [],
+      "isRequired": true,
+      "type": {
+        "raw": "string",
+        "kind": {
+          "value": 152,
+          "name": "StringKeyword"
+        },
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [
+    {
+      "name": "TestInterfaceParent",
+      "type": "interface",
+      "comment": "This is a test interface which acts as a parent interface.",
+      "tags": [],
+      "imports": [
+        {
+          "name": "TestInterfaceConstraint",
+          "path": "./test.interface.generic.constraint"
+        },
+        {
+          "name": "TestInterfaceSuperParent",
+          "path": "./test.interface.parent.super"
+        }
+      ],
+      "properties": [
+        {
+          "name": "myParentProperty",
+          "comment": "A string property.",
+          "imports": [],
+          "isRequired": true,
+          "type": {
+            "raw": "string",
+            "kind": {
+              "value": 152,
+              "name": "StringKeyword"
+            },
+            "constraintValue": {},
+            "defaultValue": {},
+            "suppliedValue": {}
+          }
+        },
+        {
+          "name": "myGenericProperty",
+          "comment": "A generic property.",
+          "imports": [
+            {
+              "name": "TestInterfaceConstraint",
+              "path": "./test.interface.generic.constraint"
+            }
+          ],
+          "isRequired": true,
+          "type": {
+            "raw": "GenericParentType",
+            "kind": {
+              "value": 180,
+              "name": "TypeReference"
+            },
+            "defaultValue": {
+              "raw": "TestInterfaceConstraint",
+              "kind": {
+                "value": 180,
+                "name": "TypeReference"
+              },
+              "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
+            },
+            "constraintValue": {
+              "raw": "TestInterfaceConstraint",
+              "kind": {
+                "value": 180,
+                "name": "TypeReference"
+              },
+              "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
+            },
+            "suppliedValue": {
+              "raw": "TestInterfaceConstraintExtender",
+              "kind": {
+                "value": 180,
+                "name": "TypeReference"
+              }
+            }
+          }
+        },
+        {
+          "name": "myGenericPropertySecond",
+          "comment": "A second generic property.",
+          "imports": [],
+          "isRequired": true,
+          "type": {
+            "raw": "GenericParentTypeSecond",
+            "kind": {
+              "value": 148,
+              "name": "NumberKeyword"
+            },
+            "defaultValue": {
+              "raw": "number",
+              "kind": {
+                "value": 148,
+                "name": "NumberKeyword"
+              }
+            },
+            "constraintValue": {},
+            "suppliedValue": {
+              "raw": "string",
+              "kind": {
+                "value": 152,
+                "name": "StringKeyword"
+              }
+            }
+          }
+        }
+      ],
+      "extendingStructures": [
+        {
+          "name": "TestInterfaceSuperParent",
+          "type": "interface",
+          "comment": "This is a test interface which acts as a super parent (parent of parent) interface.",
+          "tags": [],
+          "imports": [],
+          "properties": [
+            {
+              "name": "mySuperParentProperty",
+              "comment": "A string property.",
+              "imports": [],
+              "isRequired": true,
+              "type": {
+                "raw": "string",
+                "kind": {
+                  "value": 152,
+                  "name": "StringKeyword"
+                },
+                "constraintValue": {},
+                "defaultValue": {},
+                "suppliedValue": {}
+              }
+            }
+          ],
+          "extendingStructures": [],
+          "typeParameters": [],
+          "typeArguments": [],
+          "path": "/test-root/src/parser/__mocks__/primitives/test.interface.parent.super.ts"
+        }
+      ],
+      "typeParameters": [
+        {
+          "raw": "GenericParentType",
+          "kind": {
+            "value": 180,
+            "name": "TypeReference"
+          },
+          "defaultValue": {
+            "raw": "TestInterfaceConstraint",
+            "kind": {
+              "value": 180,
+              "name": "TypeReference"
+            },
+            "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
+          },
+          "constraintValue": {
+            "raw": "TestInterfaceConstraint",
+            "kind": {
+              "value": 180,
+              "name": "TypeReference"
+            },
+            "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
+          },
+          "suppliedValue": {}
+        },
+        {
+          "raw": "GenericParentTypeSecond",
+          "kind": {
+            "value": 148,
+            "name": "NumberKeyword"
+          },
+          "defaultValue": {
+            "raw": "number",
+            "kind": {
+              "value": 148,
+              "name": "NumberKeyword"
+            }
+          },
+          "constraintValue": {},
+          "suppliedValue": {}
+        }
+      ],
+      "typeArguments": [],
+      "path": "/test-root/src/parser/__mocks__/primitives/test.interface.parent.ts"
+    }
+  ],
+  "typeParameters": [],
+  "typeArguments": [
+    {
+      "name": "TestInterfaceParent",
+      "typeArguments": [
+        {
+          "raw": "TestInterfaceConstraintExtender",
+          "kind": {
+            "value": 180,
+            "name": "TypeReference"
+          },
+          "constraintValue": {},
+          "defaultValue": {},
+          "suppliedValue": {}
+        },
+        {
+          "raw": "string",
+          "kind": {
+            "value": 152,
+            "name": "StringKeyword"
+          },
+          "constraintValue": {},
+          "defaultValue": {},
+          "suppliedValue": {}
+        }
+      ]
+    }
+  ],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.parent-interface-generic.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with a parent interface which accepts type arguments and only has array properties 1`] = `
+{
+  "name": "TestInterfaceWithParentGenericArrayProperties",
+  "type": "interface",
+  "comment": "This is a test interface with a parent interface which accepts type arguments and only has array properties.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestInterfaceConstraintExtender",
+      "path": "./primitives/test.interface.generic.constraint.extender"
+    },
+    {
+      "name": "TestInterfaceParentWithArrayProperties",
+      "path": "./primitives/test.interface.parent.arrays"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myBaseProperty",
+      "comment": "A base property.",
+      "imports": [],
+      "isRequired": true,
+      "type": {
+        "raw": "string",
+        "kind": {
+          "value": 152,
+          "name": "StringKeyword"
+        },
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [
+    {
+      "name": "TestInterfaceParentWithArrayProperties",
+      "type": "interface",
+      "comment": "This is a test interface which acts as a parent interface and only has array properties.",
+      "tags": [],
+      "imports": [
+        {
+          "name": "TestInterfaceConstraint",
+          "path": "./test.interface.generic.constraint"
+        },
+        {
+          "name": "TestInterfaceSuperParent",
+          "path": "./test.interface.parent.super"
+        }
+      ],
+      "properties": [
+        {
+          "name": "myParentProperty",
+          "comment": "A string property.",
+          "imports": [],
+          "isRequired": true,
+          "type": {
+            "raw": "string[]",
+            "kind": {
+              "value": 185,
+              "name": "ArrayType"
+            },
+            "elements": [
+              {
+                "raw": "string",
+                "kind": {
+                  "value": 152,
+                  "name": "StringKeyword"
+                },
+                "constraintValue": {},
+                "defaultValue": {},
+                "suppliedValue": {}
+              }
+            ],
+            "constraintValue": {},
+            "defaultValue": {},
+            "suppliedValue": {}
+          }
+        },
+        {
+          "name": "myGenericProperty",
+          "comment": "A generic property.",
+          "imports": [],
+          "isRequired": true,
+          "type": {
+            "raw": "GenericParentType[]",
+            "kind": {
+              "value": 185,
+              "name": "ArrayType"
+            },
+            "elements": [
+              {
+                "raw": "GenericParentType",
+                "kind": {
+                  "value": 180,
+                  "name": "TypeReference"
+                },
+                "defaultValue": {
+                  "raw": "TestInterfaceConstraint",
+                  "kind": {
+                    "value": 180,
+                    "name": "TypeReference"
+                  },
+                  "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
+                },
+                "constraintValue": {
+                  "raw": "TestInterfaceConstraint",
+                  "kind": {
+                    "value": 180,
+                    "name": "TypeReference"
+                  },
+                  "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
+                },
+                "suppliedValue": {
+                  "raw": "TestInterfaceConstraintExtender",
+                  "kind": {
+                    "value": 180,
+                    "name": "TypeReference"
+                  }
+                }
+              }
+            ],
+            "constraintValue": {},
+            "defaultValue": {},
+            "suppliedValue": {}
+          }
+        },
+        {
+          "name": "myGenericPropertySecond",
+          "comment": "A second generic property.",
+          "imports": [],
+          "isRequired": true,
+          "type": {
+            "raw": "GenericParentTypeSecond[]",
+            "kind": {
+              "value": 185,
+              "name": "ArrayType"
+            },
+            "elements": [
+              {
+                "raw": "GenericParentTypeSecond",
+                "kind": {
+                  "value": 148,
+                  "name": "NumberKeyword"
+                },
+                "defaultValue": {
+                  "raw": "number",
+                  "kind": {
+                    "value": 148,
+                    "name": "NumberKeyword"
+                  }
+                },
+                "constraintValue": {},
+                "suppliedValue": {
+                  "raw": "string",
+                  "kind": {
+                    "value": 152,
+                    "name": "StringKeyword"
+                  }
+                }
+              }
+            ],
+            "constraintValue": {},
+            "defaultValue": {},
+            "suppliedValue": {}
+          }
+        }
+      ],
+      "extendingStructures": [
+        {
+          "name": "TestInterfaceSuperParent",
+          "type": "interface",
+          "comment": "This is a test interface which acts as a super parent (parent of parent) interface.",
+          "tags": [],
+          "imports": [],
+          "properties": [
+            {
+              "name": "mySuperParentProperty",
+              "comment": "A string property.",
+              "imports": [],
+              "isRequired": true,
+              "type": {
+                "raw": "string",
+                "kind": {
+                  "value": 152,
+                  "name": "StringKeyword"
+                },
+                "constraintValue": {},
+                "defaultValue": {},
+                "suppliedValue": {}
+              }
+            }
+          ],
+          "extendingStructures": [],
+          "typeParameters": [],
+          "typeArguments": [],
+          "path": "/test-root/src/parser/__mocks__/primitives/test.interface.parent.super.ts"
+        }
+      ],
+      "typeParameters": [
+        {
+          "raw": "GenericParentType",
+          "kind": {
+            "value": 180,
+            "name": "TypeReference"
+          },
+          "defaultValue": {
+            "raw": "TestInterfaceConstraint",
+            "kind": {
+              "value": 180,
+              "name": "TypeReference"
+            },
+            "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
+          },
+          "constraintValue": {
+            "raw": "TestInterfaceConstraint",
+            "kind": {
+              "value": 180,
+              "name": "TypeReference"
+            },
+            "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
+          },
+          "suppliedValue": {}
+        },
+        {
+          "raw": "GenericParentTypeSecond",
+          "kind": {
+            "value": 148,
+            "name": "NumberKeyword"
+          },
+          "defaultValue": {
+            "raw": "number",
+            "kind": {
+              "value": 148,
+              "name": "NumberKeyword"
+            }
+          },
+          "constraintValue": {},
+          "suppliedValue": {}
+        }
+      ],
+      "typeArguments": [],
+      "path": "/test-root/src/parser/__mocks__/primitives/test.interface.parent.arrays.ts"
+    }
+  ],
+  "typeParameters": [],
+  "typeArguments": [
+    {
+      "name": "TestInterfaceParentWithArrayProperties",
+      "typeArguments": [
+        {
+          "raw": "TestInterfaceConstraintExtender",
+          "kind": {
+            "value": 180,
+            "name": "TypeReference"
+          },
+          "constraintValue": {},
+          "defaultValue": {},
+          "suppliedValue": {}
+        },
+        {
+          "raw": "string",
+          "kind": {
+            "value": 152,
+            "name": "StringKeyword"
+          },
+          "constraintValue": {},
+          "defaultValue": {},
+          "suppliedValue": {}
+        }
+      ]
+    }
+  ],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.parent-interface-generic.arrays.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with a relationship type (property which accepts type arguments) 1`] = `
+{
+  "name": "TestInterfaceWithRelationshipProperty",
+  "type": "interface",
+  "comment": "This is a test interface with an relationship property.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestNode",
+      "path": "./primitives/test.interface.node"
+    },
+    {
+      "name": "TestRelationship",
+      "path": "./primitives/test.interface.relationship"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myRelationshipProperty",
+      "comment": "A relationship property.",
+      "imports": [
+        {
+          "name": "TestNode",
+          "path": "./primitives/test.interface.node"
+        }
+      ],
+      "isRequired": true,
+      "type": {
+        "raw": "TestRelationship",
+        "kind": {
+          "value": 180,
+          "name": "TypeReference"
+        },
+        "typeArguments": [
+          {
+            "raw": "TestNode",
+            "kind": {
+              "value": 180,
+              "name": "TypeReference"
+            },
+            "constraintValue": {},
+            "defaultValue": {},
+            "suppliedValue": {}
+          }
+        ],
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.relationship.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with a rest type property 1`] = `
+{
+  "name": "TestInterfaceWithRestType",
+  "type": "interface",
+  "comment": "This is a test interface with a rest type property.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestEnum",
+      "path": "./test.enum"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myTupleTypePropertyWithRestType",
+      "comment": "A tuple type property which contains a rest type.",
+      "imports": [],
+      "isRequired": true,
+      "type": {
+        "raw": "[TestEnum.ENUM_KEY_STRING, ...TestEnum[]]",
+        "kind": {
+          "value": 186,
+          "name": "TupleType"
+        },
+        "elements": [
+          {
+            "raw": "TestEnum",
+            "kind": {
+              "value": 79,
+              "name": "Identifier"
+            },
+            "defaultValue": {
+              "raw": "ENUM_KEY_STRING",
+              "kind": {
+                "value": 79,
+                "name": "Identifier"
+              }
+            },
+            "typeArguments": [],
+            "constraintValue": {},
+            "suppliedValue": {}
+          },
+          {
+            "raw": "...TestEnum[]",
+            "kind": {
+              "value": 188,
+              "name": "RestType"
+            },
+            "elements": [
+              {
+                "raw": "TestEnum[]",
+                "kind": {
+                  "value": 185,
+                  "name": "ArrayType"
+                },
+                "elements": [
+                  {
+                    "raw": "TestEnum",
+                    "kind": {
+                      "value": 180,
+                      "name": "TypeReference"
+                    },
+                    "typeArguments": [],
+                    "constraintValue": {},
+                    "defaultValue": {},
+                    "suppliedValue": {}
+                  }
+                ],
+                "constraintValue": {},
+                "defaultValue": {},
+                "suppliedValue": {}
+              }
+            ],
+            "constraintValue": {},
+            "defaultValue": {},
+            "suppliedValue": {}
+          }
+        ],
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.rest-type.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with a tuple type property 1`] = `
+{
+  "name": "TestInterfaceWithTupleType",
+  "type": "interface",
+  "comment": "This is a test interface with a tuple type property.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestEnum",
+      "path": "./test.enum"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myTupleTypeProperty",
+      "comment": "A tuple type property.",
+      "imports": [],
+      "isRequired": true,
+      "type": {
+        "raw": "[TestEnum.ENUM_KEY_STRING, TestEnum.ENUM_KEY_NUMBER]",
+        "kind": {
+          "value": 186,
+          "name": "TupleType"
+        },
+        "elements": [
+          {
+            "raw": "TestEnum",
+            "kind": {
+              "value": 79,
+              "name": "Identifier"
+            },
+            "defaultValue": {
+              "raw": "ENUM_KEY_STRING",
+              "kind": {
+                "value": 79,
+                "name": "Identifier"
+              }
+            },
+            "typeArguments": [],
+            "constraintValue": {},
+            "suppliedValue": {}
+          },
+          {
+            "raw": "TestEnum",
+            "kind": {
+              "value": 79,
+              "name": "Identifier"
+            },
+            "defaultValue": {
+              "raw": "ENUM_KEY_NUMBER",
+              "kind": {
+                "value": 79,
+                "name": "Identifier"
+              }
+            },
+            "typeArguments": [],
+            "constraintValue": {},
+            "suppliedValue": {}
+          }
+        ],
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.tuple-type.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with a type alias property 1`] = `
+{
+  "name": "TestInterfaceWithTypeAlias",
+  "type": "interface",
+  "comment": "This is a test interface with a type alias property.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestTypeAlias",
+      "path": "./test.type-alias"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myTypeAlias",
+      "comment": "A type alias property.",
+      "imports": [
+        {
+          "name": "TestTypeAlias",
+          "path": "./test.type-alias"
+        }
+      ],
+      "isRequired": true,
+      "type": {
+        "raw": "TestTypeAlias",
+        "kind": {
+          "value": 180,
+          "name": "TypeReference"
+        },
+        "typeArguments": [],
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.type-alias.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with a union type property 1`] = `
+{
+  "name": "TestInterfaceWithUnionType",
+  "type": "interface",
+  "comment": "This is a test interface with a union type property.",
+  "tags": [],
+  "imports": [],
+  "properties": [
+    {
+      "name": "myUnionProperty",
+      "comment": "A union property.",
+      "imports": [],
+      "isRequired": true,
+      "type": {
+        "raw": "string | number | boolean",
+        "kind": {
+          "value": 189,
+          "name": "UnionType"
+        },
+        "elements": [
+          {
+            "raw": "string",
+            "kind": {
+              "value": 152,
+              "name": "StringKeyword"
+            },
+            "constraintValue": {},
+            "defaultValue": {},
+            "suppliedValue": {}
+          },
+          {
+            "raw": "number",
+            "kind": {
+              "value": 148,
+              "name": "NumberKeyword"
+            },
+            "constraintValue": {},
+            "defaultValue": {},
+            "suppliedValue": {}
+          },
+          {
+            "raw": "boolean",
+            "kind": {
+              "value": 134,
+              "name": "BooleanKeyword"
+            },
+            "constraintValue": {},
+            "defaultValue": {},
+            "suppliedValue": {}
+          }
+        ],
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.union-type.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with an array property 1`] = `
+{
+  "name": "TestInterfaceWithArrayProperty",
+  "type": "interface",
+  "comment": "This is a test interface with an array property.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestEnum",
+      "path": "./test.enum"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myArrayProperty",
+      "comment": "A array property.",
+      "imports": [],
+      "isRequired": true,
+      "type": {
+        "raw": "TestEnum[]",
+        "kind": {
+          "value": 185,
+          "name": "ArrayType"
+        },
+        "elements": [
+          {
+            "raw": "TestEnum",
+            "kind": {
+              "value": 180,
+              "name": "TypeReference"
+            },
+            "typeArguments": [],
+            "constraintValue": {},
+            "defaultValue": {},
+            "suppliedValue": {}
+          }
+        ],
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.array.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with an indexed type property 1`] = `
+{
+  "name": "TestInterfaceWithIndexedAccessType",
+  "type": "interface",
+  "comment": "This is a test interface with a generic array property.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestInterfaceConstraint",
+      "path": "./primitives/test.interface.generic.constraint"
+    },
+    {
+      "name": "TestInterfaceConstraintExtender",
+      "path": "./primitives/test.interface.generic.constraint.extender"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myIndexedProperty",
+      "comment": "An indexed property.",
+      "imports": [],
+      "isRequired": true,
+      "type": {
+        "raw": "string",
+        "kind": {
+          "value": 152,
+          "name": "StringKeyword"
+        },
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [
+    {
+      "raw": "GenericType",
+      "kind": {
+        "value": 180,
+        "name": "TypeReference"
+      },
+      "defaultValue": {
+        "raw": "TestInterfaceConstraintExtender",
+        "kind": {
+          "value": 180,
+          "name": "TypeReference"
+        },
+        "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint.extender"
+      },
+      "constraintValue": {
+        "raw": "TestInterfaceConstraint",
+        "kind": {
+          "value": 180,
+          "name": "TypeReference"
+        },
+        "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
+      },
+      "suppliedValue": {}
+    }
+  ],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.indexed.access.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with basic properties - boolean, string, number 1`] = `
+{
+  "name": "TestInterfaceWithBasicProperties",
+  "type": "interface",
+  "comment": "This is a test interface.",
+  "tags": [],
+  "imports": [],
+  "properties": [
+    {
+      "name": "myStringProperty",
+      "comment": "A string property.",
+      "imports": [],
+      "isRequired": true,
+      "type": {
+        "raw": "string",
+        "kind": {
+          "value": 152,
+          "name": "StringKeyword"
+        },
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    },
+    {
+      "name": "myNumberProperty",
+      "comment": "A number property.",
+      "imports": [],
+      "isRequired": true,
+      "type": {
+        "raw": "number",
+        "kind": {
+          "value": 148,
+          "name": "NumberKeyword"
+        },
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    },
+    {
+      "name": "myBooleanProperty",
+      "comment": "A boolean property.",
+      "imports": [],
+      "isRequired": true,
+      "type": {
+        "raw": "boolean",
+        "kind": {
+          "value": 134,
+          "name": "BooleanKeyword"
+        },
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.basic.properties.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with enum property 1`] = `
+{
+  "name": "TestInterfaceWithEnumProperty",
+  "type": "interface",
+  "comment": "This is a test interface with an enum property.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestEnum",
+      "path": "./test.enum"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myEnumProperty",
+      "comment": "A enum property.",
+      "imports": [
+        {
+          "name": "TestEnum",
+          "path": "./test.enum"
+        }
+      ],
+      "isRequired": true,
+      "type": {
+        "raw": "TestEnum",
+        "kind": {
+          "value": 180,
+          "name": "TypeReference"
+        },
+        "typeArguments": [],
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.enum.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with no properties 1`] = `
+{
+  "name": "TestInterfaceEmpty",
+  "type": "interface",
+  "comment": "This is a test interface with no properties.",
+  "tags": [],
+  "imports": [],
+  "properties": [],
+  "extendingStructures": [],
+  "typeParameters": [],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.empty.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with properties which accept type arguments 1`] = `
+{
+  "name": "TestInterfaceWithGenericProperty",
+  "type": "interface",
+  "comment": "This is a test interface with an interface which accepts a type argument.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestInterfaceParentBasic",
+      "path": "./primitives/test.interface.parent.basic"
+    },
+    {
+      "name": "TestEnum",
+      "path": "./test.enum"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myGenericProperty",
+      "comment": "A generic property with a primitive.",
+      "imports": [
+        {
+          "name": "TestInterfaceParentBasic",
+          "path": "./primitives/test.interface.parent.basic"
+        }
+      ],
+      "isRequired": true,
+      "type": {
+        "raw": "TestInterfaceParentBasic",
+        "kind": {
+          "value": 180,
+          "name": "TypeReference"
+        },
+        "typeArguments": [
+          {
+            "raw": "boolean",
+            "kind": {
+              "value": 134,
+              "name": "BooleanKeyword"
+            },
+            "constraintValue": {},
+            "defaultValue": {},
+            "suppliedValue": {}
+          }
+        ],
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    },
+    {
+      "name": "myGenericPropertyWithTypeReference",
+      "comment": "A generic property with another type reference.",
+      "imports": [
+        {
+          "name": "TestInterfaceParentBasic",
+          "path": "./primitives/test.interface.parent.basic"
+        }
+      ],
+      "isRequired": true,
+      "type": {
+        "raw": "TestInterfaceParentBasic",
+        "kind": {
+          "value": 180,
+          "name": "TypeReference"
+        },
+        "typeArguments": [
+          {
+            "raw": "TestEnum",
+            "kind": {
+              "value": 180,
+              "name": "TypeReference"
+            },
+            "constraintValue": {},
+            "defaultValue": {},
+            "suppliedValue": {}
+          }
+        ],
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.interface-generic.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with special properties - date 1`] = `
+{
+  "name": "TestInterfaceWithSpecialProperties",
+  "type": "interface",
+  "comment": "This is a test interface with special properties, requiring special handling.",
+  "tags": [],
+  "imports": [],
+  "properties": [
+    {
+      "name": "myDateProperty",
+      "comment": "A date property.",
+      "imports": [],
+      "isRequired": true,
+      "type": {
+        "raw": "Date",
+        "kind": {
+          "value": 180,
+          "name": "TypeReference"
+        },
+        "typeArguments": [],
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      }
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.special.properties.ts"
+}
+`;

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GraphQLBaseTransformer getGraphQLType constructs correct GQL for Type.ArrayType 1`] = `"[TestEnum]"`;
+
+exports[`GraphQLBaseTransformer getGraphQLType constructs correct GQL for Type.BooleanKeyword 1`] = `"Boolean"`;
+
+exports[`GraphQLBaseTransformer getGraphQLType constructs correct GQL for Type.EnumMember 1`] = `"'enumValue'"`;
+
+exports[`GraphQLBaseTransformer getGraphQLType constructs correct GQL for Type.Identifier 1`] = `"TestEnum"`;
+
+exports[`GraphQLBaseTransformer getGraphQLType constructs correct GQL for Type.InterfaceDeclaration 1`] = `"TestInterface"`;
+
+exports[`GraphQLBaseTransformer getGraphQLType constructs correct GQL for Type.NumberKeyword 1`] = `"Int"`;
+
+exports[`GraphQLBaseTransformer getGraphQLType constructs correct GQL for Type.StringKeyword 1`] = `"String"`;
+
+exports[`GraphQLBaseTransformer getGraphQLType constructs correct GQL for Type.TupleType 1`] = `"[TestEnum]"`;
+
+exports[`GraphQLBaseTransformer getGraphQLType constructs correct GQL for Type.TypeReference 1`] = `"TestInterfaceConstraintExtender"`;
+
+exports[`GraphQLBaseTransformer getGraphQLType constructs correct GQL for Type.TypeReference 2`] = `"TestTypeAlias"`;
+
+exports[`GraphQLBaseTransformer getGraphQLType constructs correct GQL for Type.UnionType 1`] = `"String | Int | Boolean"`;

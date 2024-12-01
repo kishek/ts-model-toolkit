@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GuardBaseTransformer constructs correct type guard for Type.ArrayType 1`] = `"Array.isArray(entity) && entity.every((item: any) => isTestEnum(item))"`;
+
+exports[`GuardBaseTransformer constructs correct type guard for Type.BooleanKeyword 1`] = `"typeof entity === "boolean""`;
+
+exports[`GuardBaseTransformer constructs correct type guard for Type.Identifier 1`] = `"entity === TestEnum.ENUM_KEY_STRING"`;
+
+exports[`GuardBaseTransformer constructs correct type guard for Type.InterfaceDeclaration 1`] = `"isTestInterface(entity)"`;
+
+exports[`GuardBaseTransformer constructs correct type guard for Type.NumberKeyword 1`] = `"typeof entity === "number""`;
+
+exports[`GuardBaseTransformer constructs correct type guard for Type.StringKeyword 1`] = `"typeof entity === "string""`;
+
+exports[`GuardBaseTransformer constructs correct type guard for Type.TupleType 1`] = `"Array.isArray(entity) && Array.isArray(entity) && entity.every((item: any) => isTestEnum(item)) && entity.some(item => item === TestEnum.ENUM_KEY_STRING)"`;
+
+exports[`GuardBaseTransformer constructs correct type guard for Type.TypeReference 1`] = `"(isGenericType || isTestInterfaceConstraintExtender)(entity)"`;
+
+exports[`GuardBaseTransformer constructs correct type guard for Type.TypeReference 2`] = `"isTestTypeAlias(entity)"`;
+
+exports[`GuardBaseTransformer constructs correct type guard for Type.TypeReference 3`] = `"isTestRelationship<TestNode>(entity, isTestNode)"`;
+
+exports[`GuardBaseTransformer constructs correct type guard for Type.UnionType 1`] = `"(typeof entity === "string" || typeof entity === "number" || typeof entity === "boolean")"`;
