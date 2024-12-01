@@ -25,20 +25,20 @@ exports[`InterfaceParser returns structure of interface with a generic array pro
       "type": {
         "raw": "GenericType[]",
         "kind": {
-          "value": 185,
+          "value": 188,
           "name": "ArrayType"
         },
         "elements": [
           {
             "raw": "GenericType",
             "kind": {
-              "value": 180,
+              "value": 183,
               "name": "TypeReference"
             },
             "defaultValue": {
               "raw": "TestInterfaceConstraintExtender",
               "kind": {
-                "value": 180,
+                "value": 183,
                 "name": "TypeReference"
               },
               "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint.extender"
@@ -46,7 +46,7 @@ exports[`InterfaceParser returns structure of interface with a generic array pro
             "constraintValue": {
               "raw": "TestInterfaceConstraint",
               "kind": {
-                "value": 180,
+                "value": 183,
                 "name": "TypeReference"
               },
               "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
@@ -65,13 +65,13 @@ exports[`InterfaceParser returns structure of interface with a generic array pro
     {
       "raw": "GenericType",
       "kind": {
-        "value": 180,
+        "value": 183,
         "name": "TypeReference"
       },
       "defaultValue": {
         "raw": "TestInterfaceConstraintExtender",
         "kind": {
-          "value": 180,
+          "value": 183,
           "name": "TypeReference"
         },
         "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint.extender"
@@ -79,7 +79,7 @@ exports[`InterfaceParser returns structure of interface with a generic array pro
       "constraintValue": {
         "raw": "TestInterfaceConstraint",
         "kind": {
-          "value": 180,
+          "value": 183,
           "name": "TypeReference"
         },
         "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
@@ -122,13 +122,13 @@ exports[`InterfaceParser returns structure of interface with a generic property,
       "type": {
         "raw": "GenericType",
         "kind": {
-          "value": 180,
+          "value": 183,
           "name": "TypeReference"
         },
         "defaultValue": {
           "raw": "TestInterfaceConstraintExtender",
           "kind": {
-            "value": 180,
+            "value": 183,
             "name": "TypeReference"
           },
           "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint.extender"
@@ -136,7 +136,7 @@ exports[`InterfaceParser returns structure of interface with a generic property,
         "constraintValue": {
           "raw": "TestInterfaceConstraint",
           "kind": {
-            "value": 180,
+            "value": 183,
             "name": "TypeReference"
           },
           "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
@@ -150,13 +150,13 @@ exports[`InterfaceParser returns structure of interface with a generic property,
     {
       "raw": "GenericType",
       "kind": {
-        "value": 180,
+        "value": 183,
         "name": "TypeReference"
       },
       "defaultValue": {
         "raw": "TestInterfaceConstraintExtender",
         "kind": {
-          "value": 180,
+          "value": 183,
           "name": "TypeReference"
         },
         "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint.extender"
@@ -164,7 +164,7 @@ exports[`InterfaceParser returns structure of interface with a generic property,
       "constraintValue": {
         "raw": "TestInterfaceConstraint",
         "kind": {
-          "value": 180,
+          "value": 183,
           "name": "TypeReference"
         },
         "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
@@ -203,13 +203,13 @@ exports[`InterfaceParser returns structure of interface with a narrowed enum pro
       "type": {
         "raw": "TestEnum",
         "kind": {
-          "value": 79,
+          "value": 80,
           "name": "Identifier"
         },
         "defaultValue": {
           "raw": "ENUM_KEY_STRING",
           "kind": {
-            "value": 79,
+            "value": 80,
             "name": "Identifier"
           }
         },
@@ -247,7 +247,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
       "type": {
         "raw": "string",
         "kind": {
-          "value": 152,
+          "value": 154,
           "name": "StringKeyword"
         },
         "constraintValue": {},
@@ -272,7 +272,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
           "type": {
             "raw": "string",
             "kind": {
-              "value": 152,
+              "value": 154,
               "name": "StringKeyword"
             },
             "constraintValue": {},
@@ -318,7 +318,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
       "type": {
         "raw": "string",
         "kind": {
-          "value": 152,
+          "value": 154,
           "name": "StringKeyword"
         },
         "constraintValue": {},
@@ -352,7 +352,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
           "type": {
             "raw": "string",
             "kind": {
-              "value": 152,
+              "value": 154,
               "name": "StringKeyword"
             },
             "constraintValue": {},
@@ -373,13 +373,13 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
           "type": {
             "raw": "GenericParentType",
             "kind": {
-              "value": 180,
+              "value": 183,
               "name": "TypeReference"
             },
             "defaultValue": {
               "raw": "TestInterfaceConstraint",
               "kind": {
-                "value": 180,
+                "value": 183,
                 "name": "TypeReference"
               },
               "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
@@ -387,7 +387,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
             "constraintValue": {
               "raw": "TestInterfaceConstraint",
               "kind": {
-                "value": 180,
+                "value": 183,
                 "name": "TypeReference"
               },
               "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
@@ -395,7 +395,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
             "suppliedValue": {
               "raw": "TestInterfaceConstraintExtender",
               "kind": {
-                "value": 180,
+                "value": 183,
                 "name": "TypeReference"
               }
             }
@@ -409,13 +409,13 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
           "type": {
             "raw": "GenericParentTypeSecond",
             "kind": {
-              "value": 148,
+              "value": 150,
               "name": "NumberKeyword"
             },
             "defaultValue": {
               "raw": "number",
               "kind": {
-                "value": 148,
+                "value": 150,
                 "name": "NumberKeyword"
               }
             },
@@ -423,7 +423,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
             "suppliedValue": {
               "raw": "string",
               "kind": {
-                "value": 152,
+                "value": 154,
                 "name": "StringKeyword"
               }
             }
@@ -446,7 +446,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
               "type": {
                 "raw": "string",
                 "kind": {
-                  "value": 152,
+                  "value": 154,
                   "name": "StringKeyword"
                 },
                 "constraintValue": {},
@@ -465,13 +465,13 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
         {
           "raw": "GenericParentType",
           "kind": {
-            "value": 180,
+            "value": 183,
             "name": "TypeReference"
           },
           "defaultValue": {
             "raw": "TestInterfaceConstraint",
             "kind": {
-              "value": 180,
+              "value": 183,
               "name": "TypeReference"
             },
             "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
@@ -479,7 +479,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
           "constraintValue": {
             "raw": "TestInterfaceConstraint",
             "kind": {
-              "value": 180,
+              "value": 183,
               "name": "TypeReference"
             },
             "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
@@ -489,13 +489,13 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
         {
           "raw": "GenericParentTypeSecond",
           "kind": {
-            "value": 148,
+            "value": 150,
             "name": "NumberKeyword"
           },
           "defaultValue": {
             "raw": "number",
             "kind": {
-              "value": 148,
+              "value": 150,
               "name": "NumberKeyword"
             }
           },
@@ -515,7 +515,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
         {
           "raw": "TestInterfaceConstraintExtender",
           "kind": {
-            "value": 180,
+            "value": 183,
             "name": "TypeReference"
           },
           "constraintValue": {},
@@ -525,7 +525,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
         {
           "raw": "string",
           "kind": {
-            "value": 152,
+            "value": 154,
             "name": "StringKeyword"
           },
           "constraintValue": {},
@@ -564,7 +564,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
       "type": {
         "raw": "string",
         "kind": {
-          "value": 152,
+          "value": 154,
           "name": "StringKeyword"
         },
         "constraintValue": {},
@@ -598,14 +598,14 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
           "type": {
             "raw": "string[]",
             "kind": {
-              "value": 185,
+              "value": 188,
               "name": "ArrayType"
             },
             "elements": [
               {
                 "raw": "string",
                 "kind": {
-                  "value": 152,
+                  "value": 154,
                   "name": "StringKeyword"
                 },
                 "constraintValue": {},
@@ -626,20 +626,20 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
           "type": {
             "raw": "GenericParentType[]",
             "kind": {
-              "value": 185,
+              "value": 188,
               "name": "ArrayType"
             },
             "elements": [
               {
                 "raw": "GenericParentType",
                 "kind": {
-                  "value": 180,
+                  "value": 183,
                   "name": "TypeReference"
                 },
                 "defaultValue": {
                   "raw": "TestInterfaceConstraint",
                   "kind": {
-                    "value": 180,
+                    "value": 183,
                     "name": "TypeReference"
                   },
                   "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
@@ -647,7 +647,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
                 "constraintValue": {
                   "raw": "TestInterfaceConstraint",
                   "kind": {
-                    "value": 180,
+                    "value": 183,
                     "name": "TypeReference"
                   },
                   "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
@@ -655,7 +655,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
                 "suppliedValue": {
                   "raw": "TestInterfaceConstraintExtender",
                   "kind": {
-                    "value": 180,
+                    "value": 183,
                     "name": "TypeReference"
                   }
                 }
@@ -674,20 +674,20 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
           "type": {
             "raw": "GenericParentTypeSecond[]",
             "kind": {
-              "value": 185,
+              "value": 188,
               "name": "ArrayType"
             },
             "elements": [
               {
                 "raw": "GenericParentTypeSecond",
                 "kind": {
-                  "value": 148,
+                  "value": 150,
                   "name": "NumberKeyword"
                 },
                 "defaultValue": {
                   "raw": "number",
                   "kind": {
-                    "value": 148,
+                    "value": 150,
                     "name": "NumberKeyword"
                   }
                 },
@@ -695,7 +695,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
                 "suppliedValue": {
                   "raw": "string",
                   "kind": {
-                    "value": 152,
+                    "value": 154,
                     "name": "StringKeyword"
                   }
                 }
@@ -723,7 +723,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
               "type": {
                 "raw": "string",
                 "kind": {
-                  "value": 152,
+                  "value": 154,
                   "name": "StringKeyword"
                 },
                 "constraintValue": {},
@@ -742,13 +742,13 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
         {
           "raw": "GenericParentType",
           "kind": {
-            "value": 180,
+            "value": 183,
             "name": "TypeReference"
           },
           "defaultValue": {
             "raw": "TestInterfaceConstraint",
             "kind": {
-              "value": 180,
+              "value": 183,
               "name": "TypeReference"
             },
             "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
@@ -756,7 +756,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
           "constraintValue": {
             "raw": "TestInterfaceConstraint",
             "kind": {
-              "value": 180,
+              "value": 183,
               "name": "TypeReference"
             },
             "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
@@ -766,13 +766,13 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
         {
           "raw": "GenericParentTypeSecond",
           "kind": {
-            "value": 148,
+            "value": 150,
             "name": "NumberKeyword"
           },
           "defaultValue": {
             "raw": "number",
             "kind": {
-              "value": 148,
+              "value": 150,
               "name": "NumberKeyword"
             }
           },
@@ -792,7 +792,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
         {
           "raw": "TestInterfaceConstraintExtender",
           "kind": {
-            "value": 180,
+            "value": 183,
             "name": "TypeReference"
           },
           "constraintValue": {},
@@ -802,7 +802,7 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
         {
           "raw": "string",
           "kind": {
-            "value": 152,
+            "value": 154,
             "name": "StringKeyword"
           },
           "constraintValue": {},
@@ -846,14 +846,14 @@ exports[`InterfaceParser returns structure of interface with a relationship type
       "type": {
         "raw": "TestRelationship",
         "kind": {
-          "value": 180,
+          "value": 183,
           "name": "TypeReference"
         },
         "typeArguments": [
           {
             "raw": "TestNode",
             "kind": {
-              "value": 180,
+              "value": 183,
               "name": "TypeReference"
             },
             "constraintValue": {},
@@ -895,20 +895,20 @@ exports[`InterfaceParser returns structure of interface with a rest type propert
       "type": {
         "raw": "[TestEnum.ENUM_KEY_STRING, ...TestEnum[]]",
         "kind": {
-          "value": 186,
+          "value": 189,
           "name": "TupleType"
         },
         "elements": [
           {
             "raw": "TestEnum",
             "kind": {
-              "value": 79,
+              "value": 80,
               "name": "Identifier"
             },
             "defaultValue": {
               "raw": "ENUM_KEY_STRING",
               "kind": {
-                "value": 79,
+                "value": 80,
                 "name": "Identifier"
               }
             },
@@ -919,21 +919,21 @@ exports[`InterfaceParser returns structure of interface with a rest type propert
           {
             "raw": "...TestEnum[]",
             "kind": {
-              "value": 188,
+              "value": 191,
               "name": "RestType"
             },
             "elements": [
               {
                 "raw": "TestEnum[]",
                 "kind": {
-                  "value": 185,
+                  "value": 188,
                   "name": "ArrayType"
                 },
                 "elements": [
                   {
                     "raw": "TestEnum",
                     "kind": {
-                      "value": 180,
+                      "value": 183,
                       "name": "TypeReference"
                     },
                     "typeArguments": [],
@@ -986,20 +986,20 @@ exports[`InterfaceParser returns structure of interface with a tuple type proper
       "type": {
         "raw": "[TestEnum.ENUM_KEY_STRING, TestEnum.ENUM_KEY_NUMBER]",
         "kind": {
-          "value": 186,
+          "value": 189,
           "name": "TupleType"
         },
         "elements": [
           {
             "raw": "TestEnum",
             "kind": {
-              "value": 79,
+              "value": 80,
               "name": "Identifier"
             },
             "defaultValue": {
               "raw": "ENUM_KEY_STRING",
               "kind": {
-                "value": 79,
+                "value": 80,
                 "name": "Identifier"
               }
             },
@@ -1010,13 +1010,13 @@ exports[`InterfaceParser returns structure of interface with a tuple type proper
           {
             "raw": "TestEnum",
             "kind": {
-              "value": 79,
+              "value": 80,
               "name": "Identifier"
             },
             "defaultValue": {
               "raw": "ENUM_KEY_NUMBER",
               "kind": {
-                "value": 79,
+                "value": 80,
                 "name": "Identifier"
               }
             },
@@ -1064,7 +1064,7 @@ exports[`InterfaceParser returns structure of interface with a type alias proper
       "type": {
         "raw": "TestTypeAlias",
         "kind": {
-          "value": 180,
+          "value": 183,
           "name": "TypeReference"
         },
         "typeArguments": [],
@@ -1097,14 +1097,14 @@ exports[`InterfaceParser returns structure of interface with a union type proper
       "type": {
         "raw": "string | number | boolean",
         "kind": {
-          "value": 189,
+          "value": 192,
           "name": "UnionType"
         },
         "elements": [
           {
             "raw": "string",
             "kind": {
-              "value": 152,
+              "value": 154,
               "name": "StringKeyword"
             },
             "constraintValue": {},
@@ -1114,7 +1114,7 @@ exports[`InterfaceParser returns structure of interface with a union type proper
           {
             "raw": "number",
             "kind": {
-              "value": 148,
+              "value": 150,
               "name": "NumberKeyword"
             },
             "constraintValue": {},
@@ -1124,7 +1124,7 @@ exports[`InterfaceParser returns structure of interface with a union type proper
           {
             "raw": "boolean",
             "kind": {
-              "value": 134,
+              "value": 136,
               "name": "BooleanKeyword"
             },
             "constraintValue": {},
@@ -1166,14 +1166,14 @@ exports[`InterfaceParser returns structure of interface with an array property 1
       "type": {
         "raw": "TestEnum[]",
         "kind": {
-          "value": 185,
+          "value": 188,
           "name": "ArrayType"
         },
         "elements": [
           {
             "raw": "TestEnum",
             "kind": {
-              "value": 180,
+              "value": 183,
               "name": "TypeReference"
             },
             "typeArguments": [],
@@ -1220,7 +1220,7 @@ exports[`InterfaceParser returns structure of interface with an indexed type pro
       "type": {
         "raw": "string",
         "kind": {
-          "value": 152,
+          "value": 154,
           "name": "StringKeyword"
         },
         "constraintValue": {},
@@ -1234,13 +1234,13 @@ exports[`InterfaceParser returns structure of interface with an indexed type pro
     {
       "raw": "GenericType",
       "kind": {
-        "value": 180,
+        "value": 183,
         "name": "TypeReference"
       },
       "defaultValue": {
         "raw": "TestInterfaceConstraintExtender",
         "kind": {
-          "value": 180,
+          "value": 183,
           "name": "TypeReference"
         },
         "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint.extender"
@@ -1248,7 +1248,7 @@ exports[`InterfaceParser returns structure of interface with an indexed type pro
       "constraintValue": {
         "raw": "TestInterfaceConstraint",
         "kind": {
-          "value": 180,
+          "value": 183,
           "name": "TypeReference"
         },
         "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
@@ -1277,7 +1277,7 @@ exports[`InterfaceParser returns structure of interface with basic properties - 
       "type": {
         "raw": "string",
         "kind": {
-          "value": 152,
+          "value": 154,
           "name": "StringKeyword"
         },
         "constraintValue": {},
@@ -1293,7 +1293,7 @@ exports[`InterfaceParser returns structure of interface with basic properties - 
       "type": {
         "raw": "number",
         "kind": {
-          "value": 148,
+          "value": 150,
           "name": "NumberKeyword"
         },
         "constraintValue": {},
@@ -1309,7 +1309,7 @@ exports[`InterfaceParser returns structure of interface with basic properties - 
       "type": {
         "raw": "boolean",
         "kind": {
-          "value": 134,
+          "value": 136,
           "name": "BooleanKeyword"
         },
         "constraintValue": {},
@@ -1351,7 +1351,7 @@ exports[`InterfaceParser returns structure of interface with enum property 1`] =
       "type": {
         "raw": "TestEnum",
         "kind": {
-          "value": 180,
+          "value": 183,
           "name": "TypeReference"
         },
         "typeArguments": [],
@@ -1413,14 +1413,14 @@ exports[`InterfaceParser returns structure of interface with properties which ac
       "type": {
         "raw": "TestInterfaceParentBasic",
         "kind": {
-          "value": 180,
+          "value": 183,
           "name": "TypeReference"
         },
         "typeArguments": [
           {
             "raw": "boolean",
             "kind": {
-              "value": 134,
+              "value": 136,
               "name": "BooleanKeyword"
             },
             "constraintValue": {},
@@ -1446,14 +1446,14 @@ exports[`InterfaceParser returns structure of interface with properties which ac
       "type": {
         "raw": "TestInterfaceParentBasic",
         "kind": {
-          "value": 180,
+          "value": 183,
           "name": "TypeReference"
         },
         "typeArguments": [
           {
             "raw": "TestEnum",
             "kind": {
-              "value": 180,
+              "value": 183,
               "name": "TypeReference"
             },
             "constraintValue": {},
@@ -1490,7 +1490,7 @@ exports[`InterfaceParser returns structure of interface with special properties 
       "type": {
         "raw": "Date",
         "kind": {
-          "value": 180,
+          "value": 183,
           "name": "TypeReference"
         },
         "typeArguments": [],

@@ -27,28 +27,28 @@ describe('TypeAliasParser', () => {
           {
             "raw": "literal",
             "kind": {
-              "value": 152,
+              "value": 154,
               "name": "StringKeyword"
             }
           },
           {
             "raw": "literal",
             "kind": {
-              "value": 148,
+              "value": 150,
               "name": "NumberKeyword"
             }
           },
           {
             "raw": "literal",
             "kind": {
-              "value": 134,
+              "value": 136,
               "name": "BooleanKeyword"
             }
           },
           {
             "raw": "TestInterface",
             "kind": {
-              "value": 261,
+              "value": 264,
               "name": "InterfaceDeclaration"
             }
           }
@@ -65,6 +65,6 @@ describe('TypeAliasParser', () => {
         "properties": [],
         "path": "/test-root/src/parser/__mocks__/test.type-alias.ts"
       }
-    `);
+      `);
   });
 });

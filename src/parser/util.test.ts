@@ -14,9 +14,7 @@ describe('getExport()', () => {
     file.addInterface({ name: 'TestInterface', isExported: true });
     file.addInterface({ name: 'TestInterfaceTwo', isExported: true });
 
-    expect(() => getExport(file)).toThrowErrorMatchingInlineSnapshot(
-      `"More than one export encountered in /test-rootundefined! Unsupported by \`ts-model-toolkit\`."`,
-    );
+    expect(() => getExport(file)).toThrowErrorMatchingInlineSnapshot(`"More than one export encountered in /test-root/parser.getExport.test.ts! Unsupported by \`ts-model-toolkit\`."`);
   });
 
   it('throws error when an unsupported export is present', () => {

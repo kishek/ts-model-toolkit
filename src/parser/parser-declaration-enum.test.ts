@@ -51,13 +51,13 @@ describe('EnumParser', () => {
             "type": {
               "raw": "enum-member",
               "kind": {
-                "value": 302,
+                "value": 306,
                 "name": "EnumMember"
               },
               "defaultValue": {
                 "raw": "'enumValue'",
                 "kind": {
-                  "value": 152,
+                  "value": 154,
                   "name": "StringKeyword"
                 }
               }
@@ -71,13 +71,13 @@ describe('EnumParser', () => {
             "type": {
               "raw": "enum-member",
               "kind": {
-                "value": 302,
+                "value": 306,
                 "name": "EnumMember"
               },
               "defaultValue": {
                 "raw": "5",
                 "kind": {
-                  "value": 148,
+                  "value": 150,
                   "name": "NumberKeyword"
                 }
               }
@@ -88,6 +88,6 @@ describe('EnumParser', () => {
         ],
         "path": "/test-root/src/parser/__mocks__/test.enum.ts"
       }
-    `);
+      `);
   });
 });
