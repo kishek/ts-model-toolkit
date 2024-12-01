@@ -1,0 +1,8 @@
+"An association -> B uses A, and can exist independent of A."
+type AssociatedWith {
+  "Relationship type of an association."
+  type: RelationshipType!
+
+  "ID of the entity instance it is related to."
+  id: ID!
+}

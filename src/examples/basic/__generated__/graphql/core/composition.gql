@@ -1,0 +1,8 @@
+"A composition -> B is part of A, and cannot exist independent of A."
+type ComposedOf implements Relationship {
+  "Relationship type of an composition."
+  type: RelationshipType!
+
+  "Relationship entity."
+  entities: [Identifiable]!
+}

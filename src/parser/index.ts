@@ -1,10 +1,15 @@
-import { Node, SourceFile } from 'ts-morph';
+import { Node, Project, SourceFile } from 'ts-morph';
 
 import { EnumParser } from './parser-declaration-enum';
 import { InterfaceParser } from './parser-declaration-interface';
 import { TypeAliasParser } from './parser-declaration-type-alias';
 import { ParserResult, SupportedDeclaration } from './types';
 import { getExport, getExports } from './util';
+
+export interface ProjectOpts {
+  tsconfigPath: string;
+  sourceDirectory: string;
+}
 
 export class DeclarationParser {
   private enumParser: EnumParser;
@@ -15,6 +20,25 @@ export class DeclarationParser {
     this.enumParser = new EnumParser();
     this.interfaceParser = new InterfaceParser();
     this.typeAliasParser = new TypeAliasParser();
+  }
+
+  public parseProject(
+    opts: ProjectOpts,
+  ): Map<string, ParserResult.Structure | undefined> {
+    const project = new Project({
+      tsConfigFilePath: opts.tsconfigPath,
+    });
+    project.addDirectoryAtPath(opts.sourceDirectory);
+
+    const files = project.getSourceFiles();
+    const results = new Map<string, ParserResult.Structure | undefined>();
+
+    for (const file of files) {
+      const result = this.parse(file);
+      results.set(file.getFilePath(), result);
+    }
+
+    return results;
   }
 
   public parse(sourceFile: SourceFile): ParserResult.Structure | undefined {

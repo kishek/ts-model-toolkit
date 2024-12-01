@@ -1,0 +1,118 @@
+"An association -> B uses A, and can exist independent of A."
+type AssociatedWith {
+  "Relationship type of an association."
+  type: RelationshipType!
+
+  "ID of the entity instance it is related to."
+  id: ID!
+}
+
+"An identifiable entity has a unique identifier, or ID."
+type Identifiable {
+  "The ID - this should be a unique string, or a structured ID (to be defined)."
+  id: ID!
+}
+
+"The types of relationships supported. Each of these are related to key design principles when modelling data schemas."
+enum RelationshipType {
+  "Represents if some entity B is part of A, and cannot exist without A."
+  COMPOSED_OF
+
+  "Represents if entity B is part of A, and can exist independently of A."
+  AGGREGATED_BY
+
+  "Represents if entity B uses A, and can exist independently of A."
+  ASSOCIATED_WITH
+}
+
+"Represents a connection between two entities."
+type Relationship {
+  "The type of relationship."
+  type: RelationshipType!
+
+  "The nodes which the current entity is being related to."
+  entities: [Identifiable]!
+}
+
+"An aggregation -> B is part of A, but can exist independent of A."
+type AggregatedBy implements Relationship {
+  "Relationship type of an aggregation."
+  type: RelationshipType!
+
+  "Relationship entity."
+  entities: [Identifiable]!
+}
+
+"A composition -> B is part of A, and cannot exist independent of A."
+type ComposedOf implements Relationship {
+  "Relationship type of an composition."
+  type: RelationshipType!
+
+  "Relationship entity."
+  entities: [Identifiable]!
+}
+
+"A customer, who is able to able make payments."
+type Customer implements Identifiable {
+  "The ID - this should be a unique string, or a structured ID (to be defined)."
+  id: ID!
+
+  "Full name of a customer."
+  fullName: String!
+
+  "Email of the customer."
+  emailAddress: String!
+
+  "Payments made by a customer."
+  paymentsConnection(
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): CustomerPaymentsConnection
+}
+
+"Page info for connection between Customer and payments"
+type CustomerPaymentsPageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+"Connection between Customer and payments"
+type CustomerPaymentsConnection {
+  pageInfo: CustomerPaymentsPageInfo!
+  edges: [CustomerPaymentsEdge]
+}
+
+"Edge between Customer and payments"
+type CustomerPaymentsEdge {
+  cursor: String!
+  node: Payment
+}
+
+"A customer-facing invoice which is produced as a consequence of a payment."
+type Invoice implements Identifiable {
+  "The ID - this should be a unique string, or a structured ID (to be defined)."
+  id: ID!
+
+  "Free text representing details on the invoice."
+  details: String!
+
+  "Payment this invoice is related to."
+  forPayment: Payment!
+}
+
+"A payment envelope representing a customer's issued payment to a system"
+type Payment implements Identifiable {
+  "The ID - this should be a unique string, or a structured ID (to be defined)."
+  id: ID!
+
+  "Free text representing details on the payment."
+  details: String!
+
+  "Customer who made the payment is for."
+  madeBy: Customer!
+
+  "Invoice associated with the payment."
+  invoice: Invoice!
+}

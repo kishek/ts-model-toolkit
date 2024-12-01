@@ -1,0 +1,8 @@
+"An aggregation -> B is part of A, but can exist independent of A."
+type AggregatedBy implements Relationship {
+  "Relationship type of an aggregation."
+  type: RelationshipType!
+
+  "Relationship entity."
+  entities: [Identifiable]!
+}
