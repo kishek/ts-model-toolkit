@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 export { DeclarationParser as Parser, ParserResult } from './parser';
 export { GraphQLTransformer } from './transformer/graphql';
 export { BuilderTransformer } from './transformer/builders';
