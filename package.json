@@ -6,7 +6,14 @@
   "types": "./src/index.ts",
   "bin": "./src/cli/cli.js",
   "files": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "!src/parser/__mocks__/",
+    "!src/parser/__snapshots__/",
+    "!src/parser/__test_utils__/",
+    "!src/transformer/__mocks__/",
+    "!src/**/*.test.ts",
+    "README.md",
+    "CHANGELOG.md"
   ],
   "repository": {
     "type": "git",
