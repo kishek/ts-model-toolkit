@@ -5,6 +5,7 @@ import { InterfaceParser } from './parser-declaration-interface';
 import { TypeAliasParser } from './parser-declaration-type-alias';
 import { ParserResult, SupportedDeclaration } from './types';
 import { getExport, getExports } from './util';
+import path from 'path';
 
 export interface ProjectOpts {
   tsconfigPath: string;
@@ -36,7 +37,8 @@ export class DeclarationParser {
     for (const file of files) {
       // by default, all files referenced by the tsconfig.json will be added
       // we want to ignore any which do not come under the expected source directory
-      if (!file.getFilePath().includes(opts.sourceDirectory)) {
+      const pathToFile = path.relative(opts.sourceDirectory, file.getFilePath());
+      if (!pathToFile.startsWith('..') && !path.isAbsolute(pathToFile)) {
         continue;
       }
 
