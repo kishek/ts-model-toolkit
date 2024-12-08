@@ -38,7 +38,7 @@ export class DeclarationParser {
       // by default, all files referenced by the tsconfig.json will be added
       // we want to ignore any which do not come under the expected source directory
       const pathToFile = path.relative(opts.sourceDirectory, file.getFilePath());
-      if (!pathToFile.startsWith('..') && !path.isAbsolute(pathToFile)) {
+      if (pathToFile.startsWith('..') || path.isAbsolute(pathToFile)) {
         continue;
       }
 
