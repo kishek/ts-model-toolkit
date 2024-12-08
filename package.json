@@ -1,6 +1,6 @@
 {
   "name": "@kishek/ts-model-toolkit",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A modelling companion for TypeScript, with transforms between TS -> various formats.",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -29,7 +29,7 @@
     "compile": "tsc -p tsconfig.json",
     "clean": "rimraf -rf ./dist && rm -f ./*tsbuildinfo",
     "test": "jest --rootDir ./src",
-    "publish": "yarn compile && npm publish"
+    "publish:remote": "yarn compile && npm publish"
   },
   "devDependencies": {
     "@swc/jest": "^0.2.37",
