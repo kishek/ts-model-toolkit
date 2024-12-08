@@ -1,68 +1,48 @@
-"An association -> B uses A, and can exist independent of A."
-type AssociatedWith {
-  "Relationship type of an association."
-  type: RelationshipType!
-
-  "ID of the entity instance it is related to."
-  id: ID!
-}
-
-"An identifiable entity has a unique identifier, or ID."
-type Identifiable {
-  "The ID - this should be a unique string, or a structured ID (to be defined)."
-  id: ID!
-}
-
-"The types of relationships supported. Each of these are related to key design principles when modelling data schemas."
-enum RelationshipType {
-  "Represents if some entity B is part of A, and cannot exist without A."
-  COMPOSED_OF
-
-  "Represents if entity B is part of A, and can exist independently of A."
-  AGGREGATED_BY
-
-  "Represents if entity B uses A, and can exist independently of A."
-  ASSOCIATED_WITH
-}
-
-"Represents a connection between two entities."
-type Relationship {
-  "The type of relationship."
-  type: RelationshipType!
-
-  "The nodes which the current entity is being related to."
-  entities: [Identifiable]!
+schema {
+  query: Query
+  mutation: Mutation
 }
 
 "An aggregation -> B is part of A, but can exist independent of A."
 type AggregatedBy implements Relationship {
   "Relationship type of an aggregation."
   type: RelationshipType!
-
   "Relationship entity."
   entities: [Identifiable]!
+}
+
+"An association -> B uses A, and can exist independent of A."
+type AssociatedWith {
+  "Relationship type of an association."
+  type: RelationshipType!
+  "ID of the entity instance it is related to."
+  id: ID!
 }
 
 "A composition -> B is part of A, and cannot exist independent of A."
 type ComposedOf implements Relationship {
   "Relationship type of an composition."
   type: RelationshipType!
-
   "Relationship entity."
   entities: [Identifiable]!
+}
+
+"Create an invoice for a customer"
+input CreateInvoiceInput {
+  "Free text representing details on the invoice."
+  details: String!
+  "ID referring to the payment this invoice is related to."
+  forPayment: String!
 }
 
 "A customer, who is able to able make payments."
 type Customer implements Identifiable {
   "The ID - this should be a unique string, or a structured ID (to be defined)."
   id: ID!
-
   "Full name of a customer."
   fullName: String!
-
   "Email of the customer."
   emailAddress: String!
-
   "Payments made by a customer."
   paymentsConnection(
     first: Int
@@ -70,12 +50,6 @@ type Customer implements Identifiable {
     last: Int
     before: String
   ): CustomerPaymentsConnection
-}
-
-"Page info for connection between Customer and payments"
-type CustomerPaymentsPageInfo {
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
 }
 
 "Connection between Customer and payments"
@@ -90,29 +64,76 @@ type CustomerPaymentsEdge {
   node: Payment
 }
 
+"Page info for connection between Customer and payments"
+type CustomerPaymentsPageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+"Get an invoice by its ID"
+input GetInvoiceByIdInput {
+  "Lookup an invoice by ID."
+  id: ID!
+}
+
+"An identifiable entity has a unique identifier, or ID."
+type Identifiable {
+  "The ID - this should be a unique string, or a structured ID (to be defined)."
+  id: ID!
+}
+
 "A customer-facing invoice which is produced as a consequence of a payment."
 type Invoice implements Identifiable {
   "The ID - this should be a unique string, or a structured ID (to be defined)."
   id: ID!
-
   "Free text representing details on the invoice."
   details: String!
-
   "Payment this invoice is related to."
   forPayment: Payment!
+}
+
+"A customer-facing invoice group, containing a batch of invoices, typically representing a group of purchases."
+type InvoiceGroup implements Identifiable {
+  "The ID - this should be a unique string, or a structured ID (to be defined)."
+  id: ID!
+  "List of invoices associated with this group."
+  invoices: Invoice!
+}
+
+type Mutation {
+  createInvoiceCommand(input: CreateInvoiceInput!): Invoice
 }
 
 "A payment envelope representing a customer's issued payment to a system"
 type Payment implements Identifiable {
   "The ID - this should be a unique string, or a structured ID (to be defined)."
   id: ID!
-
   "Free text representing details on the payment."
   details: String!
-
   "Customer who made the payment is for."
   madeBy: Customer!
-
   "Invoice associated with the payment."
   invoice: Invoice!
+}
+
+type Query {
+  getInvoiceByIdQuery(input: GetInvoiceByIdInput!): Invoice
+}
+
+"Represents a connection between two entities."
+type Relationship {
+  "The type of relationship."
+  type: RelationshipType!
+  "The nodes which the current entity is being related to."
+  entities: [Identifiable]!
+}
+
+"The types of relationships supported. Each of these are related to key design principles when modelling data schemas."
+enum RelationshipType {
+  "Represents if some entity B is part of A, and cannot exist without A."
+  COMPOSED_OF
+  "Represents if entity B is part of A, and can exist independently of A."
+  AGGREGATED_BY
+  "Represents if entity B uses A, and can exist independently of A."
+  ASSOCIATED_WITH
 }

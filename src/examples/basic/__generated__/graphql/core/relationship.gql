@@ -2,7 +2,6 @@
 type Relationship {
   "The type of relationship."
   type: RelationshipType!
-
   "The nodes which the current entity is being related to."
   entities: [Identifiable]!
 }

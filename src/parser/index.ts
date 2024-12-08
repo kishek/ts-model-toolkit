@@ -24,17 +24,17 @@ export class DeclarationParser {
 
   public parseProject(
     opts: ProjectOpts,
-  ): Map<string, ParserResult.Structure | undefined> {
+  ): Map<string, (ParserResult.Structure | undefined)[]> {
     const project = new Project({
       tsConfigFilePath: opts.tsconfigPath,
     });
     project.addDirectoryAtPath(opts.sourceDirectory);
 
     const files = project.getSourceFiles();
-    const results = new Map<string, ParserResult.Structure | undefined>();
+    const results = new Map<string, (ParserResult.Structure | undefined)[]>();
 
     for (const file of files) {
-      const result = this.parse(file);
+      const result = this.parseAll(file);
       results.set(file.getFilePath(), result);
     }
 

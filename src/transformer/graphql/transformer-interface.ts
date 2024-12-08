@@ -26,15 +26,30 @@ export class GraphQLInterfaceTransformer extends GraphQLBaseTransformer {
         .join('')}
     `;
     } else {
-      return `
+      const inputName = opts.inputType.inputNameTransformer(structure.name);
+      const input = `
       "${structure.comment}"
-      input ${opts.inputType.nameTransformer(structure.name)} {
+      input ${inputName} {
         ${allPropertiesGraphQL.map((prop) => prop.graphql).join('')}
+        }
+        ${allPropertiesGraphQL
+          .map((prop) => prop.additionalDeclarations.join('\n'))
+          .join('')}
+          `;
+
+      const resolver = this.getResolver(structure, opts);
+      const schemaType = opts.inputType.type === 'query' ? 'Query' : 'Mutation';
+
+      if (resolver) {
+        return `${input}
+        
+        type ${schemaType} {
+          ${resolver}
+        }
+        `;
+      } else {
+        return input;
       }
-      ${allPropertiesGraphQL
-        .map((prop) => prop.additionalDeclarations.join('\n'))
-        .join('')}
-    `;
     }
   }
 
@@ -60,6 +75,20 @@ export class GraphQLInterfaceTransformer extends GraphQLBaseTransformer {
     } else {
       return '';
     }
+  }
+
+  private getResolver(structure: ParserResult.Structure, opts: GraphQLTransformerOpts) {
+    if (!opts.inputType?.resolverNameTransformer) {
+      return '';
+    }
+
+    const inputName = opts.inputType.inputNameTransformer(structure.name);
+
+    const resolver = opts.inputType.resolverNameTransformer(structure.name);
+    const resolverResult = structure.tags?.find((t) => t[0] === 'returns') ?? 'Boolean';
+    const resolverSignature = resolverResult[1];
+
+    return `${resolver}(input: ${inputName}!): ${resolverSignature}`;
   }
 
   protected transformProperty(

@@ -2,13 +2,10 @@
 type Customer implements Identifiable {
   "The ID - this should be a unique string, or a structured ID (to be defined)."
   id: ID!
-
   "Full name of a customer."
   fullName: String!
-
   "Email of the customer."
   emailAddress: String!
-
   "Payments made by a customer."
   paymentsConnection(
     first: Int
@@ -16,12 +13,6 @@ type Customer implements Identifiable {
     last: Int
     before: String
   ): CustomerPaymentsConnection
-}
-
-"Page info for connection between Customer and payments"
-type CustomerPaymentsPageInfo {
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
 }
 
 "Connection between Customer and payments"
@@ -34,4 +25,10 @@ type CustomerPaymentsConnection {
 type CustomerPaymentsEdge {
   cursor: String!
   node: Payment
+}
+
+"Page info for connection between Customer and payments"
+type CustomerPaymentsPageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
 }

@@ -24,11 +24,8 @@ export const getExport = (sourceFile: SourceFile): SupportedDeclaration => {
   ) {
     return exportDeclaration;
   } else {
-    throw new Error(
-      `Export declaration with kind ${
-        SyntaxKind[exportDeclaration.getKind()]
-      } not supported.`,
-    );
+    const kind = SyntaxKind[exportDeclaration.getKind()];
+    throw new Error(`Export declaration with kind ${kind} not supported.`);
   }
 };
 

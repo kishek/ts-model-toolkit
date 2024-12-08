@@ -2,10 +2,8 @@
 enum RelationshipType {
   "Represents if some entity B is part of A, and cannot exist without A."
   COMPOSED_OF
-
   "Represents if entity B is part of A, and can exist independently of A."
   AGGREGATED_BY
-
   "Represents if entity B uses A, and can exist independently of A."
   ASSOCIATED_WITH
 }

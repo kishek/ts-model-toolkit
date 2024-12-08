@@ -1,12 +1,15 @@
 {
   "name": "@kishek/ts-model-toolkit",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A modelling companion for TypeScript, with transforms between TS -> various formats.",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
-  "bin": "./src/cli/cli.js",
+  "bin": {
+    "ts-model-toolkit": "./dist/cli/cli.js",
+    "ts-model-toolkit:dev": "./src/cli/cli.js"
+  },
   "files": [
-    "src/**/*.ts",
+    "dist/**/*",
     "!src/parser/__mocks__/",
     "!src/parser/__snapshots__/",
     "!src/parser/__test_utils__/",
@@ -25,10 +28,10 @@
   "scripts": {
     "compile": "tsc -p tsconfig.json",
     "clean": "rimraf -rf ./dist && rm -f ./*tsbuildinfo",
-    "test": "jest --rootDir ./src"
+    "test": "jest --rootDir ./src",
+    "publish": "yarn compile && npm publish"
   },
   "devDependencies": {
-    "@swc/core": "^1.9.3",
     "@swc/jest": "^0.2.37",
     "@types/jest": "^29.5.14",
     "@types/lodash.flattendeep": "^4.4.9",
@@ -39,8 +42,11 @@
   "license": "MIT",
   "packageManager": "yarn@4.5.3",
   "dependencies": {
+    "@graphql-tools/merge": "^9.0.12",
     "@swc-node/register": "^1.10.9",
+    "@swc/core": "^1.9.3",
     "fast-glob": "^3.3.2",
+    "graphql": "^16.9.0",
     "lodash.flattendeep": "^4.4.0",
     "prettier": "^3.4.1",
     "ts-morph": "^24.0.0",

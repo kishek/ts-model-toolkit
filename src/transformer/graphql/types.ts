@@ -32,9 +32,17 @@ export interface GraphQLTransformerOpts extends Record<string, unknown> {
    */
   inputType?: {
     /**
+     * The resolver type for which an input type is being generated.
+     */
+    type: 'query' | 'mutation';
+    /**
      * Transformer for the GraphQL input schema's name.
      */
-    nameTransformer: (name: string) => string;
+    inputNameTransformer: (name: string) => string;
+    /**
+     * Transformer for the GraphQL resolver's name.
+     */
+    resolverNameTransformer?: (name: string) => string;
   };
 }
 

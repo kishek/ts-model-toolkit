@@ -2,7 +2,6 @@
 type AggregatedBy implements Relationship {
   "Relationship type of an aggregation."
   type: RelationshipType!
-
   "Relationship entity."
   entities: [Identifiable]!
 }

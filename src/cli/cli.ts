@@ -1,17 +1,24 @@
-import { glob } from 'fast-glob';
 import path from 'path';
 import yargs from 'yargs';
+import { mergeTypeDefs } from '@graphql-tools/merge';
 
 import { hideBin } from 'yargs/helpers';
-import { GraphQLTransformer, Parser } from '..';
+import { GraphQLTransformer, Parser, ParserResult } from '..';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import { format } from 'prettier';
+import { print } from 'graphql';
 
-type TransformedResult = {
-  leaf: boolean;
-  result: string;
-};
+type TransformedResult =
+  | {
+      type: 'graphql-type';
+      leaf: boolean;
+      result: string;
+    }
+  | {
+      type: 'graphql-resolver';
+      result: string;
+    };
 
 yargs(hideBin(process.argv)).command(
   'gql',
@@ -34,10 +41,18 @@ yargs(hideBin(process.argv)).command(
         requiresArg: false,
       })
       .option('combinedSchema', { alias: 'schema', type: 'boolean', defalt: false })
-      .option('relayConnectionQualifiers', {
+      .option('relayConnectionSymbols', {
         alias: 'relay',
         type: 'array',
         default: [] as string[],
+      })
+      .option('querySymbolSuffix', {
+        alias: 'query',
+        type: 'string',
+      })
+      .option('mutationSymbolSuffix', {
+        alias: 'mutation',
+        type: 'string',
       })
       .demandOption('sourceDirectory')
       .demandOption('tsconfigPath'),
@@ -58,29 +73,27 @@ yargs(hideBin(process.argv)).command(
     }
 
     const transformer = new GraphQLTransformer();
-    const transformedStructures = new Map<string, TransformedResult>();
+    const transformsByFile = new Map<
+      string,
+      { transforms: TransformedResult[]; document: string }
+    >();
 
     const entries = Array.from(structures.entries());
 
     const formattingConfig = args.prettierConfigPath
-      ? JSON.parse((await readFile(args.prettierConfigPath)).toString())
+      ? {
+          ...JSON.parse((await readFile(args.prettierConfigPath)).toString()),
+          parser: 'graphql',
+        }
       : {};
+
+    const querySuffix = args.querySymbolSuffix;
+    const mutationSuffix = args.mutationSymbolSuffix;
 
     // intermediate format -> GQL format
     await Promise.all(
-      entries.map(async ([filePath, fileStructure]) => {
-        if (!fileStructure) {
-          return;
-        }
-
-        const gql = transformer.transform(fileStructure, {
-          inheritNullabilityFromStructure: true,
-          useRelayConnectionSpecification: {
-            qualifiers: (args.relayConnectionQualifiers as string[]) ?? [],
-          },
-        });
-        const gqlPretty = await format(gql, { parser: 'graphql', ...formattingConfig });
-
+      entries.map(async ([filePath, fileStructures]) => {
+        // prepare filesystem
         const targetDir = path.resolve(filePath.split(args.sourceDirectory)[1], '..');
         const targetFile = path.basename(filePath).replace('.ts', '.gql');
         const targetPath = path.join(target, `./${targetDir}`, targetFile);
@@ -89,11 +102,73 @@ yargs(hideBin(process.argv)).command(
           await mkdir(path.resolve(targetPath, '..'), { recursive: true });
         }
 
+        const transforms: TransformedResult[] = [];
+
+        for (const fileStructure of fileStructures) {
+          if (!fileStructure) {
+            continue;
+          }
+
+          // parse query + input params
+          if (querySuffix && isSuffixedBy(fileStructure, querySuffix)) {
+            const gql = transformer.transform(fileStructure, {
+              inheritNullabilityFromStructure: true,
+              inputType: {
+                type: 'query',
+                inputNameTransformer: (n) => n.replace(querySuffix, 'Input'),
+                resolverNameTransformer: (n) => n[0].toLowerCase() + n.slice(1, n.length),
+              },
+            });
+
+            transforms.push({
+              result: gql,
+              type: 'graphql-resolver',
+            });
+          }
+
+          // parse mutation + input params
+          else if (mutationSuffix && isSuffixedBy(fileStructure, mutationSuffix)) {
+            const gql = transformer.transform(fileStructure, {
+              inheritNullabilityFromStructure: true,
+              inputType: {
+                type: 'mutation',
+                inputNameTransformer: (name) => name.replace(mutationSuffix, 'Input'),
+                resolverNameTransformer: (n) => n[0].toLowerCase() + n.slice(1, n.length),
+              },
+            });
+
+            transforms.push({
+              result: gql,
+              type: 'graphql-resolver',
+            });
+          }
+          // parse type -> GQL type
+          else {
+            const gql = transformer.transform(fileStructure, {
+              inheritNullabilityFromStructure: true,
+              useRelayConnectionSpecification: {
+                qualifiers: (args.relayConnectionSymbols ?? []) as string[],
+              },
+            });
+
+            transforms.push({
+              result: gql,
+              type: 'graphql-type',
+              leaf: fileStructure.extendingStructures.length === 0,
+            });
+          }
+        }
+
+        const documents = transforms.map((t) => t.result);
+        const documentGQL = print(
+          mergeTypeDefs(documents, { throwOnConflict: true, sort: true }),
+        );
+        const gqlPretty = await format(documentGQL, formattingConfig);
+
+        // write GQL document
         await writeFile(targetPath, gqlPretty);
-        transformedStructures.set(targetPath, {
-          leaf: fileStructure.extendingStructures.length === 0,
-          result: gqlPretty,
-        });
+
+        transformsByFile.set(targetPath, { transforms, document: gqlPretty });
       }),
     );
 
@@ -101,39 +176,15 @@ yargs(hideBin(process.argv)).command(
 
     // GQL files -> GQL schema
     if (args.combinedSchema) {
-      const entries = Array.from(transformedStructures.entries());
-      let schema = '';
+      const entries = Array.from(transformsByFile.entries());
+      const schema = print(
+        mergeTypeDefs(
+          entries.map((e) => e[1].document),
+          { throwOnConflict: true, sort: true },
+        ),
+      );
 
-      const leaves: [string, TransformedResult][] = [];
-      const nodes: [string, TransformedResult][] = [];
-
-      entries.forEach(([f, v]) => {
-        if (v.leaf) {
-          leaves.push([f, v]);
-        } else {
-          nodes.push([f, v]);
-        }
-      });
-
-      // sort alphabetically for ease of parsing schema
-      leaves.sort((a, b) => a[0].localeCompare(b[0]));
-      nodes.sort((a, b) => a[0].localeCompare(b[0]));
-
-      // add leaves
-      for (const leaf of leaves) {
-        schema += leaf[1].result;
-        schema += '\n';
-      }
-      // add nodes
-      for (const node of nodes) {
-        schema += node[1].result;
-        schema += '\n';
-      }
-
-      const schemaPretty = await format(schema, {
-        parser: 'graphql',
-        ...formattingConfig,
-      });
+      const schemaPretty = await format(schema, formattingConfig);
       const schemaPath = path.join(target, `./schema.generated.graphql`);
 
       await writeFile(schemaPath, schemaPretty);
@@ -141,3 +192,23 @@ yargs(hideBin(process.argv)).command(
     }
   },
 ).argv;
+
+const isSuffixedBy = (structure: ParserResult.Structure, suffix: string | undefined) => {
+  if (!suffix) {
+    return false;
+  }
+
+  return structure.name.endsWith(suffix);
+};
+
+const printTransform = ([, transform]: [string, TransformedResult[]]) => {
+  const types = transform.filter((t) => t.type === 'graphql-type');
+  const resolvers = transform.filter((t) => t.type === 'graphql-resolver');
+
+  let schema = '';
+
+  schema += types.map((t) => t.result).join('\n');
+  schema += resolvers.map((r) => r.result).join('\n');
+
+  return schema;
+};
