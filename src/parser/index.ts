@@ -34,6 +34,12 @@ export class DeclarationParser {
     const results = new Map<string, (ParserResult.Structure | undefined)[]>();
 
     for (const file of files) {
+      // by default, all files referenced by the tsconfig.json will be added
+      // we want to ignore any which do not come under the expected source directory
+      if (!file.getFilePath().includes(opts.sourceDirectory)) {
+        continue;
+      }
+
       const result = this.parseAll(file);
       results.set(file.getFilePath(), result);
     }
