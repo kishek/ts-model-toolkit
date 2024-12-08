@@ -85,7 +85,10 @@ export class GraphQLInterfaceTransformer extends GraphQLBaseTransformer {
     const inputName = opts.inputType.inputNameTransformer(structure.name);
 
     const resolver = opts.inputType.resolverNameTransformer(structure.name);
-    const resolverResult = structure.tags?.find((t) => t[0] === 'returns') ?? 'Boolean';
+    const resolverResult = structure.tags?.find((t) => t[0] === 'returns') ?? [
+      'default-return-value',
+      'Boolean',
+    ];
     const resolverSignature = resolverResult[1];
 
     return `${resolver}(input: ${inputName}!): ${resolverSignature}`;
