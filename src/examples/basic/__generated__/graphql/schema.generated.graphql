@@ -77,7 +77,7 @@ input GetInvoiceByIdInput {
 }
 
 "An identifiable entity has a unique identifier, or ID."
-type Identifiable {
+interface Identifiable {
   "The ID - this should be a unique string, or a structured ID (to be defined)."
   id: ID!
 }
@@ -121,7 +121,7 @@ type Query {
 }
 
 "Represents a connection between two entities."
-type Relationship {
+interface Relationship {
   "The type of relationship."
   type: RelationshipType!
   "The nodes which the current entity is being related to."

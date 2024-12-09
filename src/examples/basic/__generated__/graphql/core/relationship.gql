@@ -1,5 +1,5 @@
 "Represents a connection between two entities."
-type Relationship {
+interface Relationship {
   "The type of relationship."
   type: RelationshipType!
   "The nodes which the current entity is being related to."

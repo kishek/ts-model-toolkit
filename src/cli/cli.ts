@@ -90,7 +90,24 @@ yargs(hideBin(process.argv)).command(
     const querySuffix = args.querySymbolSuffix;
     const mutationSuffix = args.mutationSymbolSuffix;
 
-    // intermediate format -> GQL format
+    const baseStructures = new Set<string>();
+
+    // pass 1: hierarchy analysis
+    await Promise.all(
+      entries.map(async ([, fileStructures]) => {
+        for (const fileStructure of fileStructures) {
+          if (!fileStructure) {
+            continue;
+          }
+
+          fileStructure.extendingStructures.forEach((e) =>
+            baseStructures.add(`${e.path}#${e.name}`),
+          );
+        }
+      }),
+    );
+
+    // pass 2: intermediate format -> GQL format
     await Promise.all(
       entries.map(async ([filePath, fileStructures]) => {
         // prepare filesystem
@@ -109,9 +126,15 @@ yargs(hideBin(process.argv)).command(
             continue;
           }
 
+          const structureId = `${fileStructure.path}#${fileStructure.name}`;
+          const structure: ParserResult.Structure = {
+            ...fileStructure,
+            isBaseStructure: baseStructures.has(structureId),
+          };
+
           // parse query + input params
-          if (querySuffix && isSuffixedBy(fileStructure, querySuffix)) {
-            const gql = transformer.transform(fileStructure, {
+          if (querySuffix && isSuffixedBy(structure, querySuffix)) {
+            const gql = transformer.transform(structure, {
               inheritNullabilityFromStructure: true,
               inputType: {
                 type: 'query',
@@ -127,8 +150,8 @@ yargs(hideBin(process.argv)).command(
           }
 
           // parse mutation + input params
-          else if (mutationSuffix && isSuffixedBy(fileStructure, mutationSuffix)) {
-            const gql = transformer.transform(fileStructure, {
+          else if (mutationSuffix && isSuffixedBy(structure, mutationSuffix)) {
+            const gql = transformer.transform(structure, {
               inheritNullabilityFromStructure: true,
               inputType: {
                 type: 'mutation',
@@ -144,7 +167,7 @@ yargs(hideBin(process.argv)).command(
           }
           // parse type -> GQL type
           else {
-            const gql = transformer.transform(fileStructure, {
+            const gql = transformer.transform(structure, {
               inheritNullabilityFromStructure: true,
               useRelayConnectionSpecification: {
                 qualifiers: (args.relayConnectionSymbols ?? []) as string[],
@@ -154,7 +177,7 @@ yargs(hideBin(process.argv)).command(
             transforms.push({
               result: gql,
               type: 'graphql-type',
-              leaf: fileStructure.extendingStructures.length === 0,
+              leaf: structure.extendingStructures.length === 0,
             });
           }
         }
