@@ -29,7 +29,7 @@
     "compile": "tsc -p tsconfig.json",
     "clean": "rimraf -rf ./dist && rm -f ./*tsbuildinfo",
     "test": "jest --rootDir ./src",
-    "publish:remote": "yarn compile && npm publish"
+    "publish:remote": "yarn compile && npm version patch && npm publish"
   },
   "devDependencies": {
     "@swc/jest": "^0.2.37",
