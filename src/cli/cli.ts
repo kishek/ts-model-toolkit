@@ -139,7 +139,7 @@ yargs(hideBin(process.argv)).command(
               inputType: {
                 type: 'query',
                 inputNameTransformer: (n) => n.replace(querySuffix, 'Input'),
-                resolverNameTransformer: (n) => capitalize(n).replace('Query', ''),
+                resolverNameTransformer: (n) => capitalize(n).replace(querySuffix, ''),
               },
             });
 
@@ -156,7 +156,7 @@ yargs(hideBin(process.argv)).command(
               inputType: {
                 type: 'mutation',
                 inputNameTransformer: (name) => name.replace(mutationSuffix, 'Input'),
-                resolverNameTransformer: (n) => capitalize(n).replace('Command', ''),
+                resolverNameTransformer: (n) => capitalize(n).replace(mutationSuffix, ''),
               },
             });
 
