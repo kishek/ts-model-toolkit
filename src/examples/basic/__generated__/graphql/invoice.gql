@@ -36,9 +36,9 @@ type InvoiceGroup implements Identifiable {
 }
 
 type Mutation {
-  createInvoiceCommand(input: CreateInvoiceInput!): Invoice
+  createInvoice(input: CreateInvoiceInput!): Invoice
 }
 
 type Query {
-  getInvoiceByIdQuery(input: GetInvoiceByIdInput!): Invoice
+  getInvoiceById(input: GetInvoiceByIdInput!): Invoice
 }

@@ -101,7 +101,7 @@ type InvoiceGroup implements Identifiable {
 }
 
 type Mutation {
-  createInvoiceCommand(input: CreateInvoiceInput!): Invoice
+  createInvoice(input: CreateInvoiceInput!): Invoice
 }
 
 "A payment envelope representing a customer's issued payment to a system"
@@ -117,7 +117,7 @@ type Payment implements Identifiable {
 }
 
 type Query {
-  getInvoiceByIdQuery(input: GetInvoiceByIdInput!): Invoice
+  getInvoiceById(input: GetInvoiceByIdInput!): Invoice
 }
 
 "Represents a connection between two entities."
