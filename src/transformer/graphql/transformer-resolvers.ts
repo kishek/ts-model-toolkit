@@ -46,9 +46,17 @@ export const transformResolvers = async (
   const queries = resolvers.filter((r) => r.type === 'query');
   const mutations = resolvers.filter((r) => r.type === 'mutation');
 
-  queryAssignment.replaceWithText(`Query: { ${queries.map((q) => q.name).join(',')} }`);
+  queryAssignment.replaceWithText(
+    `Query: { ${queries
+      .map((q) => q.name)
+      .sort()
+      .join(',')} }`,
+  );
   mutationAssignment.replaceWithText(
-    `Mutation: { ${mutations.map((q) => q.name).join(',')} }`,
+    `Mutation: { ${mutations
+      .map((q) => q.name)
+      .sort()
+      .join(',')} }`,
   );
 
   const imports = resolvers.map((r): OptionalKind<ImportDeclarationStructure> => {
