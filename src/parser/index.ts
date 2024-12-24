@@ -23,9 +23,10 @@ export class DeclarationParser {
     this.typeAliasParser = new TypeAliasParser();
   }
 
-  public parseProject(
-    opts: ProjectOpts,
-  ): Map<string, (ParserResult.Structure | undefined)[]> {
+  public parseProject(opts: ProjectOpts): {
+    project: Project;
+    results: Map<string, (ParserResult.Structure | undefined)[]>;
+  } {
     const project = new Project({
       tsConfigFilePath: opts.tsconfigPath,
     });
@@ -46,7 +47,7 @@ export class DeclarationParser {
       results.set(file.getFilePath(), result);
     }
 
-    return results;
+    return { project, results };
   }
 
   public parse(sourceFile: SourceFile): ParserResult.Structure | undefined {

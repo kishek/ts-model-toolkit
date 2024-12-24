@@ -1,0 +1,7 @@
+export const RESOLVER_NAME = async (
+  _: unknown,
+  args: { input: RESOLVER_INPUT_TYPE },
+  ctx: any,
+): Promise<RESOLVER_RESULT> => {
+  return {} as any;
+};

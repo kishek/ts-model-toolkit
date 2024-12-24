@@ -21,11 +21,11 @@ export interface SourceFileTransformerOpts extends Record<string, unknown> {
    */
   project: Project;
   /**
-   * The model file for which a guard will be created.
+   * The source file for the import statement.
    */
   modelFile: SourceFile;
   /**
-   * The output path for the type guard. This is where the file will be written to.
+   * The output path for the file the import statement is being added to.
    */
   outputPath: string;
 }

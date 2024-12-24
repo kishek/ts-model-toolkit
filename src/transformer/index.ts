@@ -1,7 +1,12 @@
 import path from 'path';
 
 import flattenDeep from 'lodash.flattendeep';
-import { OptionalKind, SourceFile, TypeParameterDeclarationStructure } from 'ts-morph';
+import {
+  OptionalKind,
+  Project,
+  SourceFile,
+  TypeParameterDeclarationStructure,
+} from 'ts-morph';
 
 import { GuardTransformerOpts } from './guards/types';
 import { AddImportOpts, SourceFileTransformerOpts } from './types';
@@ -191,16 +196,34 @@ export abstract class Transformer<
     return opts.project.createSourceFile(opts.outputPath.replace('.ts', randomSuffix));
   }
 
+  /**
+   * Gets a source file reference at a random location for the purposes of generating code.
+   */
+  protected createFileReference(location: string, project: Project): SourceFile {
+    const randomSuffix = `.generated.${Date.now()}.ts`;
+    return project.createSourceFile(location.replace('.ts', randomSuffix));
+  }
+
   /** */
   protected checkImportFromOtherContext(importDef?: ParserResult.Import): boolean {
     return !!importDef?.path.startsWith('@');
   }
+
   /**
    * A method which checks if an import is part of a file already.
    */
   protected checkImportExists(name: string, fileRef: SourceFile): boolean {
     return !!fileRef.getImportDeclaration((declaration) =>
       declaration.getNamedImports().some((namedImport) => namedImport.getName() === name),
+    );
+  }
+
+  /**
+   * A method which checks if an import is part of a file already.
+   */
+  protected checkImportSpecifierExists(specifier: string, fileRef: SourceFile): boolean {
+    return !!fileRef.getImportDeclaration(
+      (declaration) => declaration.getModuleSpecifierValue() === specifier,
     );
   }
 
@@ -212,15 +235,28 @@ export abstract class Transformer<
     structure: ParserResult.Structure,
     fileRef: SourceFile,
     opts: SourceFileTransformerOpts,
+    name = structure.name,
   ): void {
-    if (!this.checkImportExists(structure.name, fileRef)) {
+    if (!this.checkImportExists(name, fileRef)) {
       const pathToModelFile = path
         .relative(opts.outputPath, opts.modelFile.getFilePath())
         .replace('..', '.');
-      fileRef.addImportDeclaration({
-        namedImports: [structure.name],
-        moduleSpecifier: pathToModelFile.replace('.ts', ''),
-      });
+
+      const specifier = pathToModelFile.replace('.ts', '');
+
+      const imports = fileRef.getImportDeclarations();
+      const importStatement = imports.find(
+        (importDeclaration) => importDeclaration.getModuleSpecifierValue() === specifier,
+      );
+
+      if (importStatement) {
+        importStatement.addNamedImport(name);
+      } else {
+        fileRef.addImportDeclaration({
+          namedImports: [name],
+          moduleSpecifier: specifier,
+        });
+      }
     }
   }
 

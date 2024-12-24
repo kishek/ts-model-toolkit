@@ -3,22 +3,35 @@ import yargs from 'yargs';
 import { mergeTypeDefs } from '@graphql-tools/merge';
 
 import { hideBin } from 'yargs/helpers';
-import { GraphQLTransformer, Parser, ParserResult } from '..';
 import { mkdir, readFile, writeFile } from 'fs/promises';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { format } from 'prettier';
 import { print } from 'graphql';
+
+import { GraphQLResolver } from '../transformer/graphql/types';
+import { ParserResult } from '../parser';
+import { GraphQLTransformer, Parser } from '..';
 
 type TransformedResult =
   | {
       type: 'graphql-type';
       leaf: boolean;
       result: string;
+      structure: ParserResult.Structure;
     }
   | {
       type: 'graphql-resolver';
+      kind: 'query' | 'mutation';
       result: string;
+      structure: ParserResult.Structure;
+      resolver?: GraphQLResolver;
     };
+
+type FileTransform = {
+  transforms: TransformedResult[];
+  document: string;
+  path: string;
+};
 
 yargs(hideBin(process.argv)).command(
   'gql',
@@ -54,6 +67,22 @@ yargs(hideBin(process.argv)).command(
         alias: 'mutation',
         type: 'string',
       })
+      .option('resolvers', {
+        type: 'boolean',
+        default: false,
+      })
+      .option('resolversDirectory', {
+        alias: 'resolvers-dir',
+        type: 'string',
+      })
+      .option('resolversTemplate', {
+        alias: 'resolvers-template',
+        type: 'string',
+      })
+      .option('resolversMap', {
+        alias: 'resolvers-map',
+        type: 'string',
+      })
       .demandOption('sourceDirectory')
       .demandOption('tsconfigPath'),
   async (args) => {
@@ -61,10 +90,12 @@ yargs(hideBin(process.argv)).command(
 
     // ts -> intermediate format
     const parser = new Parser();
-    const structures = parser.parseProject({
+    const parsed = parser.parseProject({
       sourceDirectory: args.sourceDirectory,
       tsconfigPath: args.tsconfigPath,
     });
+    const { project, results: structures } = parsed;
+
     console.log('parsed:', args.sourceDirectory);
 
     const target = targetDir ?? path.resolve(srcDir, '..', '__generated__/graphql');
@@ -72,11 +103,22 @@ yargs(hideBin(process.argv)).command(
       await mkdir(target, { recursive: true });
     }
 
+    const resolversDir = args.resolversDirectory;
+    if (resolversDir) {
+      const queries = path.join(resolversDir, './queries');
+      const mutations = path.join(resolversDir, './mutations');
+
+      await mkdir(queries, { recursive: true });
+      await mkdir(mutations, { recursive: true });
+    }
+
+    const resolversTemplate = args.resolversTemplate
+      ? readFileSync(args.resolversTemplate).toString('utf-8')
+      : '';
+
     const transformer = new GraphQLTransformer();
-    const transformsByFile = new Map<
-      string,
-      { transforms: TransformedResult[]; document: string }
-    >();
+    const transformsByFile = new Map<string, FileTransform>();
+    const transformsByName = new Map<string, ParserResult.Structure>();
 
     const entries = Array.from(structures.entries());
 
@@ -134,35 +176,57 @@ yargs(hideBin(process.argv)).command(
 
           // parse query + input params
           if (querySuffix && isSuffixedBy(structure, querySuffix)) {
-            const gql = transformer.transform(structure, {
+            const gql = transformer.transformInput(structure, {
               inheritNullabilityFromStructure: true,
               inputType: {
                 type: 'query',
                 inputNameTransformer: (n) => n.replace(querySuffix, 'Input'),
                 resolverNameTransformer: (n) => capitalize(n).replace(querySuffix, ''),
+                resolver: resolversDir
+                  ? {
+                      dir: path.join(resolversDir, './queries'),
+                      project,
+                      template: resolversTemplate,
+                    }
+                  : undefined,
               },
             });
 
+            transformsByName.set(structure.name, structure);
             transforms.push({
-              result: gql,
+              result: gql.graphql,
+              kind: 'query',
               type: 'graphql-resolver',
+              structure,
+              resolver: gql.resolver,
             });
           }
 
           // parse mutation + input params
           else if (mutationSuffix && isSuffixedBy(structure, mutationSuffix)) {
-            const gql = transformer.transform(structure, {
+            const gql = transformer.transformInput(structure, {
               inheritNullabilityFromStructure: true,
               inputType: {
                 type: 'mutation',
                 inputNameTransformer: (name) => name.replace(mutationSuffix, 'Input'),
                 resolverNameTransformer: (n) => capitalize(n).replace(mutationSuffix, ''),
+                resolver: resolversDir
+                  ? {
+                      dir: path.join(resolversDir, './mutations'),
+                      project,
+                      template: resolversTemplate,
+                    }
+                  : undefined,
               },
             });
 
+            transformsByName.set(structure.name, structure);
             transforms.push({
-              result: gql,
               type: 'graphql-resolver',
+              result: gql.graphql,
+              kind: 'mutation',
+              structure,
+              resolver: gql.resolver,
             });
           }
           // parse type -> GQL type
@@ -174,10 +238,12 @@ yargs(hideBin(process.argv)).command(
               },
             });
 
+            transformsByName.set(structure.name, structure);
             transforms.push({
               result: gql,
               type: 'graphql-type',
               leaf: structure.extendingStructures.length === 0,
+              structure,
             });
           }
         }
@@ -191,7 +257,11 @@ yargs(hideBin(process.argv)).command(
         // write GQL document
         await writeFile(targetPath, gqlPretty);
 
-        transformsByFile.set(targetPath, { transforms, document: gqlPretty });
+        transformsByFile.set(targetPath, {
+          transforms,
+          document: gqlPretty,
+          path: targetPath,
+        });
       }),
     );
 
@@ -212,6 +282,49 @@ yargs(hideBin(process.argv)).command(
 
       await writeFile(schemaPath, schemaPretty);
       console.log('wrote combined schema to:', schemaPath);
+    }
+
+    // GQL files -> resolver map
+    if (args.resolvers) {
+      const entries = Array.from(transformsByFile.entries());
+      const resolvers: GraphQLResolver[] = [];
+
+      for (const [path, result] of entries) {
+        for (const transform of result.transforms) {
+          if (transform.type !== 'graphql-resolver') {
+            continue;
+          }
+          if (!transform.resolver) {
+            continue;
+          }
+
+          // do not override
+          if (existsSync(transform.resolver.path)) {
+            continue;
+          }
+
+          // write single resolver to disk
+          const contents = await format(transform.resolver.contents, {
+            parser: 'typescript',
+          });
+          await writeFile(transform.resolver.path, contents);
+
+          // aggregate
+          resolvers.push(transform.resolver);
+        }
+      }
+
+      const resolversTarget = args.resolversMap;
+      if (resolversTarget) {
+        const map = await transformer.transformResolvers(resolvers, {
+          project,
+          target: resolversTarget,
+        });
+        if (map) {
+          const contents = await format(map, { parser: 'typescript' });
+          await writeFile(resolversTarget, contents);
+        }
+      }
     }
   },
 ).argv;

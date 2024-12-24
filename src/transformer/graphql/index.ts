@@ -2,15 +2,20 @@ import { GraphQLEnumTransformer } from './transformer-enum';
 import { GraphQLInterfaceTransformer } from './transformer-interface';
 import { GraphQLInterfaceRelayTransformer } from './transformer-interface-relay';
 import { GraphQLTypeAliasTransformer } from './transformer-type-alias';
-import { GraphQLTransformerOpts } from './types';
+import {
+  GraphQLResolver,
+  GraphQLResolverTransformerOpts,
+  GraphQLTransformerOpts,
+} from './types';
 import { Transformer } from '../';
 import { ParserResult } from '../../parser/types';
+import { transformResolvers } from './transformer-resolvers';
 
 export class GraphQLTransformer extends Transformer {
-  private enumTransformer: Transformer;
-  private typeAliasTransformer: Transformer;
-  private interfaceTransformer: Transformer;
-  private interfaceTransformerRelay: Transformer;
+  private enumTransformer: GraphQLEnumTransformer;
+  private typeAliasTransformer: GraphQLTypeAliasTransformer;
+  private interfaceTransformer: GraphQLInterfaceTransformer;
+  private interfaceTransformerRelay: GraphQLInterfaceRelayTransformer;
 
   public constructor() {
     super();
@@ -20,15 +25,12 @@ export class GraphQLTransformer extends Transformer {
     this.interfaceTransformerRelay = new GraphQLInterfaceRelayTransformer();
   }
 
-  public transform(
-    structure: ParserResult.Structure,
-    opts?: GraphQLTransformerOpts,
-  ): string {
+  public transform(structure: ParserResult.Structure, opts?: GraphQLTransformerOpts) {
     switch (structure.type) {
       case ParserResult.StructureType.ENUM:
-        return this.enumTransformer.transform(structure, opts);
+        return this.enumTransformer.transform(structure);
       case ParserResult.StructureType.TYPE_ALIAS:
-        return this.typeAliasTransformer.transform(structure, opts);
+        return this.typeAliasTransformer.transform(structure);
       case ParserResult.StructureType.INTERFACE: {
         if (opts?.useRelayConnectionSpecification) {
           return this.interfaceTransformerRelay.transform(structure, opts);
@@ -37,5 +39,23 @@ export class GraphQLTransformer extends Transformer {
         }
       }
     }
+  }
+
+  public transformInput(
+    structure: ParserResult.Structure,
+    opts?: GraphQLTransformerOpts,
+  ) {
+    if (structure.type !== ParserResult.StructureType.INTERFACE) {
+      throw new Error('Only interfaces can be transformed to input types');
+    }
+
+    return this.interfaceTransformer.transformInputType(structure, opts);
+  }
+
+  public transformResolvers(
+    resolvers: GraphQLResolver[],
+    opts: GraphQLResolverTransformerOpts,
+  ) {
+    return transformResolvers(resolvers, opts);
   }
 }

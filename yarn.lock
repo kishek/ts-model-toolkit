@@ -772,12 +772,14 @@ __metadata:
     "@swc/jest": "npm:^0.2.37"
     "@types/jest": "npm:^29.5.14"
     "@types/lodash.flattendeep": "npm:^4.4.9"
+    "@types/lodash.kebabcase": "npm:^4"
     "@types/node": "npm:ts5.7"
     "@types/yargs": "npm:^17.0.33"
     fast-glob: "npm:^3.3.2"
     graphql: "npm:^16.9.0"
     jest: "npm:^29.7.0"
     lodash.flattendeep: "npm:^4.4.0"
+    lodash.kebabcase: "npm:^4.1.1"
     prettier: "npm:^3.4.1"
     ts-morph: "npm:^24.0.0"
     typescript: "npm:^5.7.2"
@@ -1253,6 +1255,15 @@ __metadata:
   dependencies:
     "@types/lodash": "npm:*"
   checksum: 10/f660b5c6d8e35702572fd4358a9ce9c98178037e7d012cb41d3a6479ac71383d4710c3cb9b5e95cac71e4302e8d6d7c7af9dba9f4a1a20e2e7209d0f6610b364
+  languageName: node
+  linkType: hard
+
+"@types/lodash.kebabcase@npm:^4":
+  version: 4.1.9
+  resolution: "@types/lodash.kebabcase@npm:4.1.9"
+  dependencies:
+    "@types/lodash": "npm:*"
+  checksum: 10/66f54d6f94813c6d28896d80a9205d032baa31642f7fd8f74fcc67d113c023eced63ae643143dbbe05bd90866a6cc51b44c632a3b3651a69e8867cf779593a6a
   languageName: node
   linkType: hard
 
@@ -2943,6 +2954,13 @@ __metadata:
   version: 4.4.0
   resolution: "lodash.flattendeep@npm:4.4.0"
   checksum: 10/0d0b41d8d86999e8bea94905ac65347404d427aacddbc6654dc2f85905e27cd2b708139671ecea135fa6f0a17ed94b9d4cab8ce12b08eddcbb1ddd83952ee4c2
+  languageName: node
+  linkType: hard
+
+"lodash.kebabcase@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "lodash.kebabcase@npm:4.1.1"
+  checksum: 10/d84ec5441ef8e5c718c50315f35b0a045a77c7e8ee3e54472c06dc31f6f3602e95551a16c0923d689198b51deb8902c4bbc54fc9b965b26c1f86e21df3a05f34
   languageName: node
   linkType: hard
 

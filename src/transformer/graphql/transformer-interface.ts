@@ -1,12 +1,50 @@
+import kebabCase from 'lodash.kebabcase';
+
 import { GraphQLBaseTransformer } from './base';
-import { GraphQLTransformerOpts, GraphQLTransformPropertyResult } from './types';
+import {
+  GraphQLInputTypeParams,
+  GraphQLResolver,
+  GraphQLResolverResponse,
+  GraphQLTransformerOpts,
+  GraphQLTransformPropertyResult,
+} from './types';
 import { ParserResult } from '../../parser/types';
+import path from 'path';
+
+const resolverFallback = ['default-return-value', 'Boolean'] as const;
 
 export class GraphQLInterfaceTransformer extends GraphQLBaseTransformer {
   public transform(
     structure: ParserResult.Structure,
     opts?: GraphQLTransformerOpts,
   ): string {
+    return this.transformInterfaceToGraphQL(structure, opts);
+  }
+
+  public transformInputType(
+    structure: ParserResult.Structure,
+    opts?: GraphQLTransformerOpts,
+  ): GraphQLResolverResponse {
+    const inputType = opts?.inputType;
+
+    if (inputType === undefined) {
+      throw new Error('Input type must be provided');
+    } else {
+      const gql = this.transformInputToGraphQL(structure, opts, inputType);
+      const resolver = this.transformInputToResolver(structure, inputType);
+
+      if (resolver) {
+        return { graphql: gql, resolver };
+      } else {
+        return { graphql: gql };
+      }
+    }
+  }
+
+  private transformInterfaceToGraphQL(
+    structure: ParserResult.Structure,
+    opts: GraphQLTransformerOpts | undefined,
+  ) {
     const keyword = structure.isBaseStructure ? 'interface' : 'type';
     const allProperties = this.getAllProperties(structure);
     const allPropertiesGraphQL = allProperties.map((prop) =>
@@ -15,8 +53,7 @@ export class GraphQLInterfaceTransformer extends GraphQLBaseTransformer {
     const directives = this.getDirectives(structure, allProperties, opts);
     const parents = this.transformExtendingStructures(structure);
 
-    if (!opts?.inputType) {
-      return `
+    return `
       "${structure.comment}"
       ${keyword} ${structure.name}${parents}${directives} {
         ${allPropertiesGraphQL.map((prop) => prop.graphql).join('')}
@@ -25,32 +62,104 @@ export class GraphQLInterfaceTransformer extends GraphQLBaseTransformer {
         .map((prop) => prop.additionalDeclarations.join('\n'))
         .join('')}
     `;
-    } else {
-      const inputName = opts.inputType.inputNameTransformer(structure.name);
-      const input = `
+  }
+
+  public transformInputToGraphQL(
+    structure: ParserResult.Structure,
+    transformOpts: GraphQLTransformerOpts | undefined,
+    opts: GraphQLInputTypeParams,
+  ): string {
+    const allProperties = this.getAllProperties(structure);
+    const allPropertiesGraphQL = allProperties.map((prop) =>
+      this.transformProperty(structure, prop, transformOpts),
+    );
+
+    const propertyDocuments = allPropertiesGraphQL.map((prop) => prop.graphql);
+    const additionalDocuments = allPropertiesGraphQL
+      .map((prop) => prop.additionalDeclarations)
+      .flat();
+
+    const inputName = opts.inputNameTransformer(structure.name);
+    const input = `
       "${structure.comment}"
       input ${inputName} {
-        ${allPropertiesGraphQL.map((prop) => prop.graphql).join('')}
-        }
-        ${allPropertiesGraphQL
-          .map((prop) => prop.additionalDeclarations.join('\n'))
-          .join('')}
-          `;
+        ${propertyDocuments.join('')}
+      }
+      
+      ${additionalDocuments.join('')}`;
 
-      const resolver = this.getResolver(structure, opts);
-      const schemaType = opts.inputType.type === 'query' ? 'Query' : 'Mutation';
+    const schemaType = opts.type === 'query' ? 'Query' : 'Mutation';
+    const resolver = this.getResolver(structure, opts);
 
-      if (resolver) {
-        return `${input}
+    if (resolver) {
+      return `
+        ${input}
         
         type ${schemaType} {
           ${resolver}
         }
-        `;
-      } else {
-        return input;
-      }
+      `;
+    } else {
+      return input;
     }
+  }
+
+  public transformInputToResolver(
+    input: ParserResult.Structure,
+    opts: GraphQLInputTypeParams,
+  ): GraphQLResolver | undefined {
+    const resolver = this.getResolverInfo(input, opts);
+    if (!resolver) {
+      return;
+    }
+
+    if (!opts.resolver) {
+      return;
+    }
+
+    const { dir, project, template } = opts.resolver;
+
+    const target = path.resolve(dir, kebabCase(resolver.resolverName) + '.ts');
+    const file = this.createFileReference(target, project);
+
+    // NOTE: it is assumed the return value of the resolver is in the same file
+    // as the file in which the input has been defined
+    const sourceFile = project.getSourceFileOrThrow(input.path);
+
+    this.addModelImport(input, file, {
+      project,
+      modelFile: sourceFile,
+      outputPath: target,
+    });
+    this.addModelImport(
+      input,
+      file,
+      {
+        project,
+        modelFile: sourceFile,
+        outputPath: target,
+      },
+      resolver.resolverResult.item,
+    );
+
+    const returns = resolver.resolverResult;
+    const result = returns.type === 'array' ? `${returns.item}[]` : returns.item;
+
+    const body = template
+      .replace(/RESOLVER_NAME/g, resolver.resolverName)
+      .replace(/RESOLVER_INPUT_TYPE/g, input.name)
+      .replace(/RESOLVER_RESULT/g, result);
+
+    const text = file.getFullText();
+    file.appendWhitespace('\n');
+    file.insertText(text.length + 1, body);
+
+    return {
+      name: resolver.resolverName,
+      type: opts.type,
+      path: target,
+      contents: file.getFullText(),
+    };
   }
 
   private getDirectives(
@@ -77,21 +186,45 @@ export class GraphQLInterfaceTransformer extends GraphQLBaseTransformer {
     }
   }
 
-  private getResolver(structure: ParserResult.Structure, opts: GraphQLTransformerOpts) {
-    if (!opts.inputType?.resolverNameTransformer) {
+  private getResolverInfo(
+    structure: ParserResult.Structure,
+    opts: GraphQLInputTypeParams,
+  ) {
+    if (!opts.resolverNameTransformer) {
+      return;
+    }
+
+    const argName = opts.inputNameTransformer(structure.name);
+    const resolverName = opts.resolverNameTransformer(structure.name);
+
+    const resolverReturnValue =
+      structure.tags?.find((t) => t[0] === 'returns') ?? resolverFallback;
+    const resolverResult = resolverReturnValue[1];
+
+    if (resolverResult.startsWith('[') && resolverResult.endsWith(']')) {
+      const item = resolverResult.slice(1, -1);
+      return { argName, resolverName, resolverResult: { type: 'array', item } as const };
+    }
+
+    return {
+      argName,
+      resolverName,
+      resolverResult: { type: 'interface', item: resolverResult } as const,
+    };
+  }
+
+  private getResolver(structure: ParserResult.Structure, opts: GraphQLInputTypeParams) {
+    const info = this.getResolverInfo(structure, opts);
+    if (!info) {
       return '';
     }
 
-    const inputName = opts.inputType.inputNameTransformer(structure.name);
+    const gqlType =
+      info.resolverResult.type === 'array'
+        ? `[${info.resolverResult.item}]`
+        : info.resolverResult.item;
 
-    const resolver = opts.inputType.resolverNameTransformer(structure.name);
-    const resolverResult = structure.tags?.find((t) => t[0] === 'returns') ?? [
-      'default-return-value',
-      'Boolean',
-    ];
-    const resolverSignature = resolverResult[1];
-
-    return `${resolver}(input: ${inputName}!): ${resolverSignature}`;
+    return `${info.resolverName}(input: ${info.argName}!): ${gqlType}`;
   }
 
   protected transformProperty(

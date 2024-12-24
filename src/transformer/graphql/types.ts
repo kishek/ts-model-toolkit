@@ -1,4 +1,7 @@
-export interface GraphQLTransformerOpts extends Record<string, unknown> {
+import { Project } from 'ts-morph';
+import { ParserResult } from '../../parser';
+
+export interface GraphQLTransformerOpts {
   /**
    * Indicates whether the 'required' or 'not required' marker in TypeScript
    * needs to be reflected back into the GraphQL representation.
@@ -30,21 +33,54 @@ export interface GraphQLTransformerOpts extends Record<string, unknown> {
   /**
    * Indicates whether the current structure should be treated as a GraphQL input type.
    */
-  inputType?: {
-    /**
-     * The resolver type for which an input type is being generated.
-     */
-    type: 'query' | 'mutation';
-    /**
-     * Transformer for the GraphQL input schema's name.
-     */
-    inputNameTransformer: (name: string) => string;
-    /**
-     * Transformer for the GraphQL resolver's name.
-     */
-    resolverNameTransformer?: (name: string) => string;
-  };
+  inputType?: GraphQLInputTypeParams;
 }
+
+export interface GraphQLResolverTransformerOpts {
+  /**
+   * File to place all resolvers into. Assumes there is a `resolvers` export.
+   */
+  target: string;
+  /**
+   * Project in which all files live.
+   */
+  project: Project;
+}
+
+export type GraphQLInputTypeParams = {
+  /**
+   * The resolver type for which an input type is being generated.
+   */
+  type: 'query' | 'mutation';
+  /**
+   * Transformer for the GraphQL input schema's name.
+   */
+  inputNameTransformer: (name: string) => string;
+  /**
+   * Transformer for the GraphQL resolver's name.
+   */
+  resolverNameTransformer?: (name: string) => string;
+  /**
+   * Generate a resolver for the input type.
+   */
+  resolver?: {
+    /**
+     * Target dir of the resolver, necessary for producing imports
+     */
+    dir: string;
+    /**
+     * The project in which all files live, necessary for producing imports
+     */
+    project: Project;
+    /**
+     * Templated resolver definition.
+     * @description RESOLVER_NAME used for exported resolver name
+     * @description RESOLVER_INPUT_TYPE used for input argument
+     * @description RESOLVER_RESULT used for output / return value
+     */
+    template: string;
+  };
+};
 
 export interface GraphQLTransformPropertyResult {
   /**
@@ -56,3 +92,35 @@ export interface GraphQLTransformPropertyResult {
    */
   additionalDeclarations: string[];
 }
+
+export type GraphQLResolver = {
+  /**
+   * TypeScript file definition.
+   */
+  contents: string;
+  /**
+   * Where in the filesystem the resolver should be written to.
+   */
+  path: string;
+  /**
+   * Final name of the resolver - its export symbol.
+   */
+  name: string;
+  /**
+   * The kind of resolver being generated.
+   */
+  type: 'query' | 'mutation';
+};
+
+export interface GraphQLResolverResponse {
+  /**
+   * GraphQL transformation of the incoming structure.
+   */
+  graphql: string;
+  /**
+   * A complete resolver definition which can be placed in a file.
+   */
+  resolver?: GraphQLResolver;
+}
+
+export type GraphQLTransformerOutput = string | GraphQLResolverResponse;

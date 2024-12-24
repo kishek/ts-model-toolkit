@@ -7,8 +7,8 @@ export class GraphQLTypeAliasTransformer extends GraphQLBaseTransformer {
       return `
         "${structure.comment}"
         union ${structure.name} = ${structure.typeAliases
-        .map(this.getGraphQLType.bind(this))
-        .join(' | ')}
+          .map(this.getGraphQLType.bind(this))
+          .join(' | ')}
       `;
     }
     throw new Error(`Oops! Only type aliases declared as unions are supported 😱`);
