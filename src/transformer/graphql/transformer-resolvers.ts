@@ -15,15 +15,14 @@ export const transformResolvers = async (
 ) => {
   // include any recently generated resolvers
   const dir = path.dirname(target);
-  project.addDirectoryAtPathIfExists(dir);
-
   const file = project.getSourceFile(target) ?? project.createSourceFile(target);
+
+  // bootstrap file if empty / does not exist
   if (file.getFullText().trim().length === 0) {
     file.insertText(0, emptyDoc);
   }
 
   const descendants = file.getDescendants();
-
   const propertyAssignments = descendants.filter((descendant) =>
     Node.isPropertyAssignment(descendant),
   );
@@ -70,7 +69,7 @@ export const transformResolvers = async (
       };
     }
 
-    const relativePath = path.relative(file.getFilePath(), moduleSpecifier.getFilePath());
+    const relativePath = path.relative(target, moduleSpecifier.getFilePath());
     const relativePathNormalized = relativePath.replace('..', '.').replace('.ts', '');
 
     return {

@@ -38,6 +38,11 @@ yargs(hideBin(process.argv)).command(
   'convert from TypeScript to GQL',
   (b) =>
     b
+      .option('cwd', {
+        alias: 'c',
+        type: 'string',
+        default: process.cwd(),
+      })
       .option('tsconfigPath', {
         alias: 'tsconfig-path',
         type: 'string',
@@ -311,6 +316,7 @@ yargs(hideBin(process.argv)).command(
             parser: 'typescript',
           });
           await writeFile(transform.resolver.path, contents);
+          project.addSourceFileAtPath(transform.resolver.path);
         }
       }
 
@@ -318,7 +324,7 @@ yargs(hideBin(process.argv)).command(
       if (resolversTarget) {
         const map = await transformer.transformResolvers(resolvers, {
           project,
-          target: resolversTarget,
+          target: path.resolve(args.cwd, resolversTarget),
         });
         if (map) {
           const contents = await format(map, { parser: 'typescript' });
