@@ -79,8 +79,8 @@ export const transformResolvers = async (
     }
 
     return !existingImports.some((i) => {
-      const existingImport = i.getModuleSpecifier().getText();
-      return existingImport === `'${importDeclaration.moduleSpecifier}'`;
+      const existingImport = i.getModuleSpecifierValue();
+      return existingImport === importDeclaration.moduleSpecifier;
     });
   });
 

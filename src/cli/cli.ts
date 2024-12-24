@@ -298,6 +298,9 @@ yargs(hideBin(process.argv)).command(
             continue;
           }
 
+          // aggregate
+          resolvers.push(transform.resolver);
+
           // do not override
           if (existsSync(transform.resolver.path)) {
             continue;
@@ -308,9 +311,6 @@ yargs(hideBin(process.argv)).command(
             parser: 'typescript',
           });
           await writeFile(transform.resolver.path, contents);
-
-          // aggregate
-          resolvers.push(transform.resolver);
         }
       }
 
