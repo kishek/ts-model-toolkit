@@ -18,6 +18,12 @@ export class GraphQLInterfaceTransformer extends GraphQLBaseTransformer {
     structure: ParserResult.Structure,
     opts?: GraphQLTransformerOpts,
   ): string {
+    const tags = structure.tags ?? [];
+
+    if (tags.some((t) => t[0] === 'input')) {
+      const inputType = this.transformInputType(structure, opts);
+      return inputType.graphql;
+    }
     return this.transformInterfaceToGraphQL(structure, opts);
   }
 
@@ -25,19 +31,17 @@ export class GraphQLInterfaceTransformer extends GraphQLBaseTransformer {
     structure: ParserResult.Structure,
     opts?: GraphQLTransformerOpts,
   ): GraphQLResolverResponse {
-    const inputType = opts?.inputType;
+    const inputType = opts?.inputType ?? {
+      type: 'query',
+      inputNameTransformer: (n) => n,
+    };
+    const gql = this.transformInputToGraphQL(structure, opts, inputType);
+    const resolver = this.transformInputToResolver(structure, inputType);
 
-    if (inputType === undefined) {
-      throw new Error('Input type must be provided');
+    if (resolver) {
+      return { graphql: gql, resolver };
     } else {
-      const gql = this.transformInputToGraphQL(structure, opts, inputType);
-      const resolver = this.transformInputToResolver(structure, inputType);
-
-      if (resolver) {
-        return { graphql: gql, resolver };
-      } else {
-        return { graphql: gql };
-      }
+      return { graphql: gql };
     }
   }
 

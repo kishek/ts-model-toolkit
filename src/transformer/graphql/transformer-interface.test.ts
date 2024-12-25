@@ -29,6 +29,32 @@ describe('GraphQLInterfaceTransformer', () => {
     `);
   });
 
+  it('constructs correct GQL representation for an input type with basic properties', () => {
+    const transformer = new GraphQLInterfaceTransformer();
+    const input = transformer.transformInputType(testInterfaceBasicStructure, {
+      inputType: { type: 'query', inputNameTransformer: (n) => n },
+    });
+
+    expect(input.graphql).toMatchInlineSnapshot(`
+      "
+            "This is a test interface."
+            input TestInterfaceWithBasicProperties {
+              
+              "A string property."
+              myStringProperty: String 
+            
+              "A number property."
+              myNumberProperty: Int 
+            
+              "A boolean property."
+              myBooleanProperty: Boolean 
+            
+            }
+            
+            "
+    `);
+  });
+
   it('constructs correct GQL representation for an interface with special properties', () => {
     const transformer = new GraphQLInterfaceTransformer();
     expect(transformer.transform(testInterfaceSpecialStructure)).toMatchInlineSnapshot(`
@@ -134,5 +160,38 @@ describe('GraphQLInterfaceTransformer', () => {
             
           "
     `);
+  });
+
+  it('constructs correct GQL input representation for an interface marked with @input', () => {
+    const transformer = new GraphQLInterfaceTransformer();
+    const input = transformer.transformInputType({
+      ...testInterfaceStructureWithGenericParentOnlyArrays,
+      tags: [['input', '']],
+    });
+
+    expect(input.graphql).toMatchInlineSnapshot(`
+"
+      "This is a test interface with a parent interface which accepts type arguments and only has array properties."
+      input TestInterfaceWithParentGenericArrayProperties {
+        
+        "A string property."
+        mySuperParentProperty: String 
+      
+        "A string property."
+        myParentProperty: [String] 
+      
+        "A generic property."
+        myGenericProperty: [TestInterfaceConstraintExtender] 
+      
+        "A second generic property."
+        myGenericPropertySecond: [String] 
+      
+        "A base property."
+        myBaseProperty: String 
+      
+      }
+      
+      "
+`);
   });
 });
