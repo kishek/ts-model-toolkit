@@ -1,6 +1,6 @@
 {
   "name": "@kishek/ts-model-toolkit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A modelling companion for TypeScript, with transforms between TS -> various formats.",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
