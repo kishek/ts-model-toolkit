@@ -58,7 +58,7 @@ yargs(hideBin(process.argv)).command(
         type: 'string',
         requiresArg: false,
       })
-      .option('combinedSchema', { alias: 'schema', type: 'boolean', defalt: false })
+      .option('combinedSchema', { alias: 'schema', type: 'boolean', default: false })
       .option('relayConnectionSymbols', {
         alias: 'relay',
         type: 'array',
@@ -162,10 +162,6 @@ yargs(hideBin(process.argv)).command(
         const targetFile = path.basename(filePath).replace('.ts', '.gql');
         const targetPath = path.join(target, `./${targetDir}`, targetFile);
 
-        if (!existsSync(targetPath)) {
-          await mkdir(path.resolve(targetPath, '..'), { recursive: true });
-        }
-
         const transforms: TransformedResult[] = [];
 
         for (const fileStructure of fileStructures) {
@@ -260,7 +256,13 @@ yargs(hideBin(process.argv)).command(
         const gqlPretty = await format(documentGQL, formattingConfig);
 
         // write GQL document
-        await writeFile(targetPath, gqlPretty);
+        if (!args.combinedSchema) {
+          if (!existsSync(targetPath)) {
+            await mkdir(path.resolve(targetPath, '..'), { recursive: true });
+          }
+
+          await writeFile(targetPath, gqlPretty);
+        }
 
         transformsByFile.set(targetPath, {
           transforms,
@@ -341,18 +343,6 @@ const isSuffixedBy = (structure: ParserResult.Structure, suffix: string | undefi
   }
 
   return structure.name.endsWith(suffix);
-};
-
-const printTransform = ([, transform]: [string, TransformedResult[]]) => {
-  const types = transform.filter((t) => t.type === 'graphql-type');
-  const resolvers = transform.filter((t) => t.type === 'graphql-resolver');
-
-  let schema = '';
-
-  schema += types.map((t) => t.result).join('\n');
-  schema += resolvers.map((r) => r.result).join('\n');
-
-  return schema;
 };
 
 const capitalize = (n: string) => {

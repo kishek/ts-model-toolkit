@@ -1,5 +1,0 @@
-"An identifiable entity has a unique identifier, or ID."
-interface Identifiable {
-  "The ID - this should be a unique string, or a structured ID (to be defined)."
-  id: ID!
-}
