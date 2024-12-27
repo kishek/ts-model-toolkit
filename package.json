@@ -1,9 +1,9 @@
 {
-  "name": "@kishek/ts-model-toolkit",
-  "version": "1.0.1",
+  "name": "@kishek/ts-craft",
+  "version": "1.0.0",
   "description": "A modelling companion for TypeScript, with transforms between TS -> various formats.",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.js",
   "bin": {
     "ts-model-toolkit": "./dist/cli/cli.js",
     "ts-model-toolkit:dev": "./src/cli/cli.js"
@@ -29,7 +29,8 @@
     "compile": "tsc -p tsconfig.json",
     "clean": "rimraf -rf ./dist && rm -f ./*tsbuildinfo",
     "test": "jest --rootDir ./src",
-    "publish:remote": "yarn compile && npm version patch && npm publish"
+    "publish:remote:bump": "yarn compile && npm version patch && npm publish",
+    "publish:remote": "yarn compile && npm publish"
   },
   "devDependencies": {
     "@swc/jest": "^0.2.37",

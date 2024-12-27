@@ -762,9 +762,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@kishek/ts-model-toolkit@workspace:.":
+"@kishek/ts-craft@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@kishek/ts-model-toolkit@workspace:."
+  resolution: "@kishek/ts-craft@workspace:."
   dependencies:
     "@graphql-tools/merge": "npm:^9.0.12"
     "@swc-node/register": "npm:^1.10.9"
