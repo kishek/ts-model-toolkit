@@ -57,7 +57,8 @@ exports[`InterfaceParser returns structure of interface with a generic array pro
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [],
@@ -142,7 +143,8 @@ exports[`InterfaceParser returns structure of interface with a generic property,
           "path": "/test-root/src/parser/__mocks__/primitives/test.interface.generic.constraint"
         },
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [],
@@ -216,7 +218,8 @@ exports[`InterfaceParser returns structure of interface with a narrowed enum pro
         "typeArguments": [],
         "constraintValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [],
@@ -253,7 +256,8 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [
@@ -278,7 +282,8 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
             "constraintValue": {},
             "defaultValue": {},
             "suppliedValue": {}
-          }
+          },
+          "tags": []
         }
       ],
       "extendingStructures": [],
@@ -324,7 +329,8 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [
@@ -358,7 +364,8 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
             "constraintValue": {},
             "defaultValue": {},
             "suppliedValue": {}
-          }
+          },
+          "tags": []
         },
         {
           "name": "myGenericProperty",
@@ -397,9 +404,13 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
               "kind": {
                 "value": 183,
                 "name": "TypeReference"
-              }
+              },
+              "constraintValue": {},
+              "defaultValue": {},
+              "suppliedValue": {}
             }
-          }
+          },
+          "tags": []
         },
         {
           "name": "myGenericPropertySecond",
@@ -425,9 +436,13 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
               "kind": {
                 "value": 154,
                 "name": "StringKeyword"
-              }
+              },
+              "constraintValue": {},
+              "defaultValue": {},
+              "suppliedValue": {}
             }
-          }
+          },
+          "tags": []
         }
       ],
       "extendingStructures": [
@@ -452,7 +467,8 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
                 "constraintValue": {},
                 "defaultValue": {},
                 "suppliedValue": {}
-              }
+              },
+              "tags": []
             }
           ],
           "extendingStructures": [],
@@ -570,7 +586,8 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [
@@ -616,7 +633,8 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
             "constraintValue": {},
             "defaultValue": {},
             "suppliedValue": {}
-          }
+          },
+          "tags": []
         },
         {
           "name": "myGenericProperty",
@@ -657,14 +675,18 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
                   "kind": {
                     "value": 183,
                     "name": "TypeReference"
-                  }
+                  },
+                  "constraintValue": {},
+                  "defaultValue": {},
+                  "suppliedValue": {}
                 }
               }
             ],
             "constraintValue": {},
             "defaultValue": {},
             "suppliedValue": {}
-          }
+          },
+          "tags": []
         },
         {
           "name": "myGenericPropertySecond",
@@ -697,14 +719,18 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
                   "kind": {
                     "value": 154,
                     "name": "StringKeyword"
-                  }
+                  },
+                  "constraintValue": {},
+                  "defaultValue": {},
+                  "suppliedValue": {}
                 }
               }
             ],
             "constraintValue": {},
             "defaultValue": {},
             "suppliedValue": {}
-          }
+          },
+          "tags": []
         }
       ],
       "extendingStructures": [
@@ -729,7 +755,8 @@ exports[`InterfaceParser returns structure of interface with a parent interface 
                 "constraintValue": {},
                 "defaultValue": {},
                 "suppliedValue": {}
-              }
+              },
+              "tags": []
             }
           ],
           "extendingStructures": [],
@@ -864,7 +891,8 @@ exports[`InterfaceParser returns structure of interface with a relationship type
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [],
@@ -955,7 +983,8 @@ exports[`InterfaceParser returns structure of interface with a rest type propert
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [],
@@ -1028,7 +1057,8 @@ exports[`InterfaceParser returns structure of interface with a tuple type proper
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [],
@@ -1071,7 +1101,8 @@ exports[`InterfaceParser returns structure of interface with a type alias proper
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [],
@@ -1135,7 +1166,8 @@ exports[`InterfaceParser returns structure of interface with a union type proper
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [],
@@ -1185,7 +1217,8 @@ exports[`InterfaceParser returns structure of interface with an array property 1
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [],
@@ -1226,7 +1259,8 @@ exports[`InterfaceParser returns structure of interface with an indexed type pro
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [],
@@ -1283,7 +1317,8 @@ exports[`InterfaceParser returns structure of interface with basic properties - 
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     },
     {
       "name": "myNumberProperty",
@@ -1299,7 +1334,8 @@ exports[`InterfaceParser returns structure of interface with basic properties - 
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     },
     {
       "name": "myBooleanProperty",
@@ -1315,7 +1351,8 @@ exports[`InterfaceParser returns structure of interface with basic properties - 
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [],
@@ -1358,7 +1395,8 @@ exports[`InterfaceParser returns structure of interface with enum property 1`] =
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [],
@@ -1431,7 +1469,8 @@ exports[`InterfaceParser returns structure of interface with properties which ac
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     },
     {
       "name": "myGenericPropertyWithTypeReference",
@@ -1464,7 +1503,8 @@ exports[`InterfaceParser returns structure of interface with properties which ac
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [],
@@ -1497,12 +1537,56 @@ exports[`InterfaceParser returns structure of interface with special properties 
         "constraintValue": {},
         "defaultValue": {},
         "suppliedValue": {}
-      }
+      },
+      "tags": []
     }
   ],
   "extendingStructures": [],
   "typeParameters": [],
   "typeArguments": [],
   "path": "/test-root/src/parser/__mocks__/test.interface.with.special.properties.ts"
+}
+`;
+
+exports[`InterfaceParser returns structure of interface with tagged properties 1`] = `
+{
+  "name": "TestInterfaceWithTaggedProperty",
+  "type": "interface",
+  "comment": "This is a test interface with an array property.",
+  "tags": [],
+  "imports": [
+    {
+      "name": "TestEnum",
+      "path": "./test.enum"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myFloatProperty",
+      "comment": "A float property.",
+      "imports": [],
+      "isRequired": true,
+      "type": {
+        "raw": "number",
+        "kind": {
+          "value": 150,
+          "name": "NumberKeyword"
+        },
+        "constraintValue": {},
+        "defaultValue": {},
+        "suppliedValue": {}
+      },
+      "tags": [
+        [
+          "float",
+          ""
+        ]
+      ]
+    }
+  ],
+  "extendingStructures": [],
+  "typeParameters": [],
+  "typeArguments": [],
+  "path": "/test-root/src/parser/__mocks__/test.interface.with.tagged-property.ts"
 }
 `;

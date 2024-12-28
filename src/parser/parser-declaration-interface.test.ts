@@ -14,6 +14,11 @@ const cases: TestCase[] = [
     path: 'test.interface.empty.ts',
   },
   {
+    description: 'with tagged properties',
+    name: 'TestInterfaceWithTaggedProperty',
+    path: 'test.interface.with.tagged-property.ts',
+  },
+  {
     description: 'with basic properties - boolean, string, number',
     name: 'TestInterfaceWithBasicProperties',
     path: 'test.interface.with.basic.properties.ts',

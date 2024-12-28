@@ -19,20 +19,40 @@ export class InterfaceParser extends Parser<InterfaceDeclaration> {
     const structure = declaration.getStructure();
 
     const comment = this.getComment(structure).trim();
-    const tags = declaration
-      .getJsDocs()
-      .flatMap((j) =>
-        j
-          .getTags()
-          .map((t) => [t.getTagName(), t.getCommentText() ?? ''] as [string, string]),
-      );
-
+    const tags = this.getTags(declaration);
     const imports = this.getImports(declaration);
+
+    const { properties, typeArguments, typeParameters } = this.getTypeProperties(
+      declaration,
+      imports,
+      structure,
+    );
+
+    const extendingStructures = this.getExtendingStructures(declaration, typeArguments);
+    const path = declaration.getSourceFile().getFilePath();
+
+    return {
+      name: structure.name,
+      type: ParserResult.StructureType.INTERFACE,
+      comment,
+      tags,
+      imports,
+      properties,
+      extendingStructures,
+      typeParameters,
+      typeArguments,
+      path: sanitizePath(path),
+    };
+  }
+
+  private getTypeProperties(
+    declaration: InterfaceDeclaration,
+    imports: ParserResult.Import[],
+    structure: InterfaceDeclarationStructure,
+  ) {
     let typeParameters = this.getTypeParameters(declaration, imports);
     let properties = this.getProperties(structure, declaration, imports, typeParameters);
     let typeArguments = this.getTypeArguments(declaration);
-    const extendingStructures = this.getExtendingStructures(declaration, typeArguments);
-    const path = declaration.getSourceFile().getFilePath();
 
     if (process.env.NODE_ENV === 'test') {
       properties = properties.map((property) => ({
@@ -48,18 +68,7 @@ export class InterfaceParser extends Parser<InterfaceDeclaration> {
       });
     }
 
-    return {
-      name: structure.name,
-      type: ParserResult.StructureType.INTERFACE,
-      comment,
-      tags,
-      imports,
-      properties,
-      extendingStructures,
-      typeParameters,
-      typeArguments,
-      path: sanitizePath(path),
-    };
+    return { typeArguments, properties, typeParameters };
   }
 
   private getProperties(
@@ -90,12 +99,15 @@ export class InterfaceParser extends Parser<InterfaceDeclaration> {
             return false;
           });
           const comment = this.getComment(property);
+          const tags = this.getTags(propertyDeclaration);
+
           return {
             name: property.name,
             comment,
             imports: propertyImport ? [propertyImport] : [],
             isRequired: !property.hasQuestionToken,
             type: propertyType,
+            tags,
           };
         }
         throw new Error(`No type parseable for ${property.name} property.`);

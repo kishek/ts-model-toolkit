@@ -117,6 +117,10 @@ export namespace ParserResult {
      * Whether this property is required.
      */
     isRequired: boolean;
+    /**
+     * A set of comment tags, treated as additional metadata for the type.
+     */
+    tags?: [string, string][];
   }
 
   /**

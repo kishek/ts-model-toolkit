@@ -5,6 +5,7 @@ import { testInterfaceGenericStructureWithConstraintOnly } from '../__mocks__/te
 import { testInterfaceStructureWithGenericParent } from '../__mocks__/test.interface.generic.parent';
 import { testInterfaceStructureWithGenericParentOnlyArrays } from '../__mocks__/test.interface.generic.parent.arrays';
 import { testInterfaceSpecialStructure } from '../__mocks__/test.interface.special';
+import { testInterfaceWithTaggedProperty } from '../__mocks__/test.interface.tagged.property';
 
 describe('GraphQLInterfaceTransformer', () => {
   it('constructs correct GQL representation for an interface with basic properties', () => {
@@ -188,6 +189,24 @@ describe('GraphQLInterfaceTransformer', () => {
       
         "A base property."
         myBaseProperty: String 
+      
+      }
+      
+      "
+`);
+  });
+
+  fit('constructs correct GQL input representation for an interface marked with @input', () => {
+    const transformer = new GraphQLInterfaceTransformer();
+    const input = transformer.transformInputType(testInterfaceWithTaggedProperty);
+
+    expect(input.graphql).toMatchInlineSnapshot(`
+"
+      "This is a test interface with an array property."
+      input TestInterfaceWithTaggedProperty {
+        
+        "A array property."
+        myFloatProperty: Float 
       
       }
       

@@ -238,6 +238,7 @@ export class GraphQLInterfaceTransformer extends GraphQLBaseTransformer {
   ): GraphQLTransformPropertyResult {
     const required = this.getGraphQLNullableMarker(property, opts);
     const type = this.transformType(property);
+
     const propertyImport = this.getImportForProperty(property, type);
 
     const isBase = structure.isBaseStructure;
@@ -286,7 +287,8 @@ export class GraphQLInterfaceTransformer extends GraphQLBaseTransformer {
     if (property.name === 'id') {
       return 'ID';
     }
-    return this.getGraphQLType(property.type);
+
+    return this.getGraphQLType(property.type, property.tags);
   }
 
   private transformExtendingStructures(structure: ParserResult.Structure): string {

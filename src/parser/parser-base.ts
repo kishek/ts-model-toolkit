@@ -1,5 +1,11 @@
 import flattenDeep from 'lodash.flattendeep';
-import { EntityName, JSDocableNodeStructure, SyntaxKind, TypeNode } from 'ts-morph';
+import {
+  EntityName,
+  JSDocableNode,
+  JSDocableNodeStructure,
+  SyntaxKind,
+  TypeNode,
+} from 'ts-morph';
 
 import { SupportedDeclaration, ParserResult, KindName } from './types';
 import { getImportForType, getImportRelativeToSourceFile } from './util';
@@ -93,6 +99,16 @@ export abstract class Parser<DeclarationType extends SupportedDeclaration> {
           },
         };
     }
+  }
+
+  protected getTags(node: JSDocableNode): [string, string][] {
+    return node
+      .getJsDocs()
+      .flatMap((j) =>
+        j
+          .getTags()
+          .map((t) => [t.getTagName(), t.getCommentText() ?? ''] as [string, string]),
+      );
   }
 
   /**

@@ -16,25 +16,30 @@ export class GraphQLBaseTransformer extends Transformer {
    * A method which translates parser type representations to GQL.
    * @param type
    */
-  protected getGraphQLType(type: ParserResult.Type): string {
-    const gqlType = this.getGraphQLFromType(type);
+  protected getGraphQLType(type: ParserResult.Type, tags?: [string, string][]): string {
+    const gqlType = this.getGraphQLFromType(type, tags);
     if (GQL_MAPPINGS[gqlType]) {
       return GQL_MAPPINGS[gqlType];
     }
     return gqlType;
   }
 
-  private getGraphQLFromType(type: ParserResult.Type): string {
+  private getGraphQLFromType(type: ParserResult.Type, tags?: [string, string][]): string {
     // NOTE: if a type has been supplied, this means that the
     // current type needs to be overriden.
     if (type.suppliedValue) {
-      return this.getGraphQLFromType(type.suppliedValue);
+      return this.getGraphQLFromType(type.suppliedValue, tags);
     }
 
     switch (type.kind.value) {
       case SyntaxKind.StringKeyword:
         return 'String';
       case SyntaxKind.NumberKeyword:
+        console.log('?', tags);
+        if (tags?.some((t) => t[0] === 'float')) {
+          return 'Float';
+        }
+
         return 'Int';
       case SyntaxKind.BooleanKeyword:
         return 'Boolean';
@@ -65,7 +70,7 @@ export class GraphQLBaseTransformer extends Transformer {
       case SyntaxKind.UnionType: {
         const elements = type.elements;
         if (elements) {
-          return elements.map(this.getGraphQLFromType.bind(this)).join(' | ');
+          return elements.map((e) => this.getGraphQLFromType(e, tags)).join(' | ');
         }
       }
       case SyntaxKind.TupleType: {

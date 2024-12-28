@@ -28,9 +28,9 @@ export class GraphQLTransformer extends Transformer {
   public transform(structure: ParserResult.Structure, opts?: GraphQLTransformerOpts) {
     switch (structure.type) {
       case ParserResult.StructureType.ENUM:
-        return this.enumTransformer.transform(structure);
+        return this.enumTransformer.transform(structure, opts);
       case ParserResult.StructureType.TYPE_ALIAS:
-        return this.typeAliasTransformer.transform(structure);
+        return this.typeAliasTransformer.transform(structure, opts);
       case ParserResult.StructureType.INTERFACE: {
         if (opts?.useRelayConnectionSpecification) {
           return this.interfaceTransformerRelay.transform(structure, opts);
